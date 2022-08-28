@@ -9,5 +9,5 @@
 
 - web
 - server
-  - model
-  - 
+  - model/
+  - api
