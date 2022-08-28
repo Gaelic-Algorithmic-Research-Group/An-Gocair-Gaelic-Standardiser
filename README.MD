@@ -9,5 +9,5 @@
 
 - web
 - server
-- deploy
-- model
+  - model
+  - 
