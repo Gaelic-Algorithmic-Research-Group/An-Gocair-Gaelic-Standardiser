@@ -35,5 +35,5 @@ def docs_redirect():
 # )
 
 
-app.include_router(api_router, prefix)
+app.include_router(api_router, prefix = prefix)
 
