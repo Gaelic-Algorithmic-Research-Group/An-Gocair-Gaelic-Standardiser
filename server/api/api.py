@@ -11,7 +11,7 @@ example_request = srsly.read_json("server/data/example_split.json")
 api_router = APIRouter()
 
 
-@api_router.post("/sentence-spiltter", response_model=SplitSentenceResponse, tags=["NER"])
+@api_router.post("/sentence-spiltter", response_model=SplitSentenceResponse)
 async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=example_request)):
     """Split text by sentence."""
     text = body.text
@@ -24,7 +24,7 @@ async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=examp
     }}
 
 
-@api_router.get("/paraphrase", response_model=ParaphraseResponse, tags=["NER"])
+@api_router.get("/paraphrase", response_model=ParaphraseResponse)
 async def paraphrase(text: str):
     """Paraphrase sentence."""
 
