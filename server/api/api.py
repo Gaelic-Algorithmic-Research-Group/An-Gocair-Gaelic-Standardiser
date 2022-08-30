@@ -1,3 +1,4 @@
+from ctypes import sizeof
 from fastapi import APIRouter, Body
 import srsly
 import hashlib
@@ -27,14 +28,11 @@ async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=examp
 async def paraphrase(text: str):
     """Paraphrase sentence."""
 
-    # generate top 5 suggestions
-    sentences = []
     # binarize the input
     pre_bin = pre2goc.binarize(text)
     # generate output binaray
     goc_bin = pre2goc.generate(pre_bin, beam=10, sampling=False)
-
-    for i in range(0,5):
-        sentences[i] = pre2goc.decode(goc_bin[i]['tokens']).replace(" ","").replace("_"," ")
+    # generate top 5 suggestions
+    sentences = [pre2goc.decode(v['tokens']).replace(" ","").replace("_"," ") for v in goc_bin[0:5]]
     return {"data": sentences}
 
