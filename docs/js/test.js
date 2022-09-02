@@ -668,16 +668,8 @@
 											wholeText: e,
 											isFake: t
 										}
-									}), o = new Date, n.prev = 2, n.next = 5, fetch(N + "g", {
-										method: "post",
-										headers: {
-											"Content-Type": "application/json",
-											"X-WORDTUNE-ORIGIN": window.location.origin,
-											userId: "deviceId-" + de()
-										},
-										body: JSON.stringify({
-											e
-										})
+									}), o = new Date, n.prev = 2, n.next = 5, fetch(N + "g/" + e, {
+										method: "get",
 									});
 								case 5:
 									if (!(i = n.sent).ok) {
