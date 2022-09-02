@@ -25,7 +25,7 @@ export default function Paraphraser() {
     .map(text => {
       const url = new URL(`${process.env.NEXT_PUBLIC_BASE_API_URL}/paraphrase`);
       url.searchParams.append('text', text);
-      return fetch(url)
+      return fetch(url.toString())
         .then(res => {
         if (res && res.ok) {
           return res.json().then(content => {
