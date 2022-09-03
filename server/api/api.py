@@ -28,6 +28,7 @@ async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=examp
 async def paraphrase(text: str):
     """Paraphrase sentence."""
 
+    text = " ".join(list(text.replace(" ","_")))
     # binarize the input
     pre_bin = pre2goc.binarize(text)
     # generate output binaray
