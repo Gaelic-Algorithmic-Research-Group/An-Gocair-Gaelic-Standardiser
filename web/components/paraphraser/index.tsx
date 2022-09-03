@@ -23,7 +23,7 @@ export default function Paraphraser() {
     const loadingToast = toast.loading('Paraphrasing...');
     Promise.all(splitSentence(inputText)
     .map(text => {
-      const url = new URL(`${process.env.NEXT_PUBLIC_BASE_API_URL}/paraphrase`);
+      const url = new URL(`${process.env.NEXT_PUBLIC_BASE_API_URL || location.origin}/paraphrase`);
       url.searchParams.append('text', text);
       return fetch(url.toString())
         .then(res => {
