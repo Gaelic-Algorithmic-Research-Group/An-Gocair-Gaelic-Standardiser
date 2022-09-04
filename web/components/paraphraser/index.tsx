@@ -80,7 +80,8 @@ export default function Paraphraser() {
 		"Thòisich leann-dubh air buaidh fhaotainn air Màiri bhochd.",
 		"TD MU DHAOINE GHEIBH BOGADH BATHAIDH, ATH-BHEOTHACHADH.",
 		"'S é 'n duine nuadh a theirear ris an nuadh chreatuir so,",
-		"Tha an cogadh a sior dhol air adhart ann an Cuba."]
+		"Tha an cogadh a sior dhol air adhart ann an Cuba.",
+		"Cha robh esan a' dol na bu mhiosa; cha robh sìon na b' fheàrr. Dh'fhalbh i seo far a robh an sagart. Dh'innis an sagart gu feumadh ise a' chlann a chur do home. Cha robh rathad aice a bhith beò mar siod. Dh'fheumadh i feuchainn ri rud-eigin a chosnadh dhi fhéin."]
     var randomtext = array[Math.floor(Math.random() * array.length)];
     //document.querySelector('textarea').value = randomtext;
     setInputText(randomtext);
