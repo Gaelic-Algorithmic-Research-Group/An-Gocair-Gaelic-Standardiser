@@ -5,7 +5,7 @@ To run locally server in debug mode run:
 
 ``` bash
 bash ./create_virtualenv.sh
-uvicorn server.main:app --reload
+nohup uvicorn server.main:app --reload &
 ```
 Open your browser to http://localhost:8000/docs to view the OpenAPI UI.
 
@@ -21,8 +21,7 @@ yarn install
 yarn dev
 
 ## export 
-yarn build
-yarn export
+yarn build && yarn export
 ```
 
 Open your browser to http://localhost:3000 to view the UI.
@@ -30,8 +29,10 @@ Open your browser to http://localhost:3000 to view the UI.
 ## TODO
 - [x] API
 - [x] UI
-- [ ] Feature1: suggestion
+- [x] Feature1: suggestion
 - [x] Feature2: sentence
+- [ ] Make UI prettier
+- [ ] Diffchecker
 
 
 ## Directory
