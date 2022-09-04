@@ -22,8 +22,8 @@ async def generate(sentence: str):
   # binarize the input
   pre_bin = pre2goc.binarize(example)
   # generate output binaray
-  goc_bin = pre2goc.generate(pre_bin, beam=10, sampling=False)
+  goc_bin = pre2goc.generate(pre_bin, beam=20, sampling=False)
 
-  for i in range(0,5):
+  for i in range(0,10):
     results[i] = pre2goc.decode(goc_bin[i]['tokens']).replace(" ","").replace("_"," ")
   return results
