@@ -6,9 +6,9 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Paraphrasing Tool &amp; Article Rewriter to paraphrase sentences.</title>
-        <meta name="description" content="Paraphrasing tool accurately rewrites the essays and articles using advanced AI. Use the completely free article rewriter tool, to help avoid plagiarism and increase creativity by rewording phrases. No signup required." />
-        <link rel="icon" href="/paraphrasing-tool/favicon.png" />
+        <title>Gaelic Text Normaliser - Neural Model</title>
+        <meta name="description" content="Gaelic Text Normaliser normalises the preGOC to GOC Gaelicthe using Transformer based model. Use the normalising tool, to help normalise the story." />
+        <link rel="icon" href="http://xiha.hate.codes/sslab/favicon.png" />
       </Head>
       <Layout>
         <Paraphraser />

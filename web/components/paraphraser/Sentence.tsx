@@ -35,6 +35,7 @@ export default function Sentence ({texts}: SentenceProps) {
                 className="hover:bg-blue-200"
                 onClick={() => {
                     setIndex((last) => i < last ? i : i + 1);
+		    setOpen(false); // added this line to close the floating box when a sentence is selected
                 }}
             >{t}</p>)}
     </div>}

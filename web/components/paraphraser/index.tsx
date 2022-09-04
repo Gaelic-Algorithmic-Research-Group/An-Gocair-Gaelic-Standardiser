@@ -13,6 +13,7 @@ export default function Paraphraser() {
   const [paraphraseLoading, setParaphraseLoading] = useState(false);
   const disabled = useMemo(() => inputText.length <= 0 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
   const inputTextRef = useRef(null);
+  const minToken = 32;
   const maxToken = 256;
   const handleInputTextChange = (e) => {
     setInputText(e.target.value)
@@ -21,7 +22,7 @@ export default function Paraphraser() {
   const handleParaphraseSubmission = () => {
     setParaphraseLoading(true);
     const loadingToast = toast.loading('Paraphrasing...');
-    Promise.all(splitSentence(inputText, maxToken)
+    Promise.all(splitSentence(inputText, minToken, maxToken)
     .map(text => {
       const url = new URL(`${process.env.NEXT_PUBLIC_BASE_API_URL || location.origin}/paraphrase`);
       url.searchParams.append('text', text);
