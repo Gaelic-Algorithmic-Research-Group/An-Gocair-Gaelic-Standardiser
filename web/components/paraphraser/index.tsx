@@ -11,7 +11,7 @@ export default function Paraphraser() {
   const [outputText, setOutputText] = useState("");
   const [outputData, setOutputData] = useState([[]]);
   const [paraphraseLoading, setParaphraseLoading] = useState(false);
-  const disabled = useMemo(() => inputText.length <= 10 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
+  const disabled = useMemo(() => inputText.length <= 1 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
   const inputTextRef = useRef(null);
 
   const handleInputTextChange = (e) => {
@@ -47,7 +47,14 @@ export default function Paraphraser() {
   }
 
   const handleCopyResult = () => {
-    copy(outputText);
+    var div = document.getElementById("outputText");
+    var spans = div.getElementsByTagName("span");
+    var text = ""
+    for (var i = 0; i < spans.length; i++) {
+      var span = spans[i];
+      text += span.innerHTML;
+   }
+    copy(text);
     toast.success('Copied result in your clipboard. Enjoy!');
   }
 
@@ -68,7 +75,7 @@ export default function Paraphraser() {
     <header className="bg-white">
       <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <h1 className="text-5xl font-bold leading-tight text-center text-gray-900">
-          Paraphrasing Tool
+          Text Normaliser 
         </h1>
       </div>
     </header>
@@ -78,10 +85,10 @@ export default function Paraphraser() {
           <div className="grid grid-cols-2 gap-x-1">
             <label htmlFor="inputText">
               <span className="block pb-2 text-center text-gray-600 md:hidden">
-                Text to paraphrase
+                Text to normalise 
               </span>
               <span className="hidden pb-2 text-center text-gray-600 md:block">
-                Enter the text you want to paraphrase
+                Enter the text you want to normalise 
               </span>
               <textarea name="inputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" placeholder="Enter the text you want to paraphrase. You can select any of the modes above for different levels of paraphrasing. After writing or pasting your text, use the Paraphrase button below." value={inputText} onChange={handleInputTextChange} disabled={paraphraseLoading} ref={inputTextRef}></textarea>
             </label>
@@ -89,7 +96,7 @@ export default function Paraphraser() {
               <span className="block pb-2 text-center text-gray-600">
                 Paraphrased text
               </span>
-              <div className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" >
+              <div id="outputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" >
                 {outputData.map((texts, i) => <Sentence key={i} texts={texts} />)}
               </div>
             </label>
@@ -117,7 +124,7 @@ export default function Paraphraser() {
                 Clear all
               </button>
             </HideShow>
-            <HideShow show={[...outputText].length > 0}>
+            <HideShow show={true}>
               <button type="button" className="flex items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" onClick={handleCopyResult}>
                 <svg className="w-6 h-6 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20">
                   <title>Copy result</title>
