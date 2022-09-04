@@ -11,9 +11,9 @@ export default function Paraphraser() {
   const [outputText, setOutputText] = useState("");
   const [outputData, setOutputData] = useState([[]]);
   const [paraphraseLoading, setParaphraseLoading] = useState(false);
-  const disabled = useMemo(() => inputText.length <= 1 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
+  const disabled = useMemo(() => inputText.length <= 0 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
   const inputTextRef = useRef(null);
-
+  const maxToken = 256;
   const handleInputTextChange = (e) => {
     setInputText(e.target.value)
   }
@@ -21,7 +21,7 @@ export default function Paraphraser() {
   const handleParaphraseSubmission = () => {
     setParaphraseLoading(true);
     const loadingToast = toast.loading('Paraphrasing...');
-    Promise.all(splitSentence(inputText)
+    Promise.all(splitSentence(inputText, maxToken)
     .map(text => {
       const url = new URL(`${process.env.NEXT_PUBLIC_BASE_API_URL || location.origin}/paraphrase`);
       url.searchParams.append('text', text);
@@ -43,9 +43,15 @@ export default function Paraphraser() {
       }).finally(() => {
         toast.dismiss(loadingToast);
         setParaphraseLoading(false);
+	setOutputEditable();
       })
+
   }
 
+  const setOutputEditable = () => {
+    var div = document.getElementById("outputText");
+    div.contentEditable = 'true';
+  }
   const handleCopyResult = () => {
     var div = document.getElementById("outputText");
     var spans = div.getElementsByTagName("span");
@@ -64,6 +70,13 @@ export default function Paraphraser() {
     toast.success('Successfully cleared content.');
   }
 
+  const loadSameple = () => {
+    var text = "here the text that you want to input.";
+    var array = ["Cha'n 'eil mi 'fuirach 'nam thigh mór an-seo ann an Éirinn, gu mi-fhortanach, ach siod a' cheud tigh a bh' agam-sa", "bhu ad a fuireach ann an Inhbir-Nìs an uar sen."]
+    var randomtext = array[Math.floor(Math.random() * array.length)];
+    //document.querySelector('textarea').value = randomtext;
+    setInputText(randomtext);
+  }    
 
   return (
   <>
@@ -90,11 +103,11 @@ export default function Paraphraser() {
               <span className="hidden pb-2 text-center text-gray-600 md:block">
                 Enter the text you want to normalise 
               </span>
-              <textarea name="inputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" placeholder="Enter the text you want to paraphrase. You can select any of the modes above for different levels of paraphrasing. After writing or pasting your text, use the Paraphrase button below." value={inputText} onChange={handleInputTextChange} disabled={paraphraseLoading} ref={inputTextRef}></textarea>
+              <textarea name="inputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" placeholder="Enter the text you want to normalise." value={inputText} onChange={handleInputTextChange} disabled={paraphraseLoading} ref={inputTextRef}></textarea>
             </label>
             <label htmlFor="outputText">
               <span className="block pb-2 text-center text-gray-600">
-                Paraphrased text
+                Normalised text
               </span>
               <div id="outputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" >
                 {outputData.map((texts, i) => <Sentence key={i} texts={texts} />)}
@@ -107,6 +120,14 @@ export default function Paraphraser() {
             <span className={`font-medium ${inputText.length > 500 ? 'text-red-600' : 'text-green-600'}`}>{inputText.length}</span><span className="text-gray-500">/500 Characters</span>
             <span className={` block font-medium ${inputText.length > 500 ? 'text-blue-500' : 'hidden'}`}><a href="mailto:amitgaur.web@gmail.com">Contact us to get more than 500 characters.</a></span>
           </div>
+          <button type="button" className="flex items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" onClick={loadSameple}>
+                <svg className="w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <title>Example</title>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1\
+ 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                </svg>
+                Example
+          </button>
           <button type="button" className="flex items-center justify-center max-w-md py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md disabled:opacity-60 px-7 hover:bg-blue-700 md:py-3 md:text-lg md:px-10" onClick={handleParaphraseSubmission} disabled={disabled}>
             {paraphraseLoading ? (<svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx={12} cy={12} r={10} stroke="currentColor" strokeWidth={4} />
