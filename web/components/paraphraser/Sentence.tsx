@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react"
 import {useFloating, useInteractions , useClick} from '@floating-ui/react-dom-interactions';
+import HideShow from '@/components/HideShow';
 
 interface SentenceProps {
     texts: string[]
@@ -17,6 +18,9 @@ export default function Sentence ({texts}: SentenceProps) {
             useClick(context),
     ]);
     return <>
+    <HideShow show={texts[0] === '\n'}>
+         <br></br>
+    </HideShow>
     <span className="hover:bg-green-200" ref={reference} {...getReferenceProps()}>{texts[index]} </span>
     {open && <div
         className="bg-yellow-100"

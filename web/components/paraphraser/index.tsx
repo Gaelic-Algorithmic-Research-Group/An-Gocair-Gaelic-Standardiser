@@ -14,7 +14,7 @@ export default function Paraphraser() {
   const disabled = useMemo(() => inputText.length <= 0 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
   const inputTextRef = useRef(null);
   const minToken = 32;
-  const maxToken = 256;
+  const maxToken = 128;
   const handleInputTextChange = (e) => {
     setInputText(e.target.value)
   }
@@ -30,14 +30,20 @@ export default function Paraphraser() {
         .then(res => {
         if (res && res.ok) {
           return res.json().then(content => {
-            return content.data as string[];
+            if (content.text[0] === "\n"){
+		return content.text as string[];
+	    }
+            else {
+                return content.data as string[];
+            }
           })
         }
         return Promise.reject();
         })
     }))
       .then((datas) => {
-        setOutputData(datas);
+        console.log(datas);
+	setOutputData(datas);
         toast.success("Successfully paraphrased. Enjoy!");
       }, _ => {
         toast.error('We ran into an issue when trying to paraphrase. Please try again later.');
