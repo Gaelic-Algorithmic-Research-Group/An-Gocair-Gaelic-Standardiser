@@ -42,7 +42,6 @@ export default function Paraphraser() {
         })
     }))
       .then((datas) => {
-        console.log(datas);
 	setOutputData(datas);
         toast.success("Successfully paraphrased. Enjoy!");
       }, _ => {
@@ -65,7 +64,7 @@ export default function Paraphraser() {
     var text = ""
     for (var i = 0; i < spans.length; i++) {
       var span = spans[i];
-      text += span.innerHTML;
+      if (span.innerHTML === '<br>') {text += "\n"} else{text += span.innerHTML;}
    }
     copy(text);
     toast.success('Copied result in your clipboard. Enjoy!');
@@ -103,7 +102,7 @@ export default function Paraphraser() {
     <header className="bg-white">
       <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <h1 className="text-5xl font-bold leading-tight text-center text-gray-900">
-          Text Normaliser 
+          An Gocair: Gaelic Standardiser
         </h1>
       </div>
     </header>
@@ -135,7 +134,7 @@ export default function Paraphraser() {
             <span className={`font-medium ${inputText.length > 500 ? 'text-red-600' : 'text-green-600'}`}>{inputText.length}</span><span className="text-gray-500">/500 Characters</span>
             <span className={` block font-medium ${inputText.length > 500 ? 'text-blue-500' : 'hidden'}`}><a href="mailto:amitgaur.web@gmail.com">Contact us to get more than 500 characters.</a></span>
           </div>
-          <button type="button" className="flex items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" onClick={loadSameple}>
+          <button type="button" className="flex justify-content:space-between items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" onClick={loadSameple}>
                 <svg className="w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <title>Example</title>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1\

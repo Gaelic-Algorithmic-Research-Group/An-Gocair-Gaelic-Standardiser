@@ -19,7 +19,7 @@ export default function Sentence ({texts}: SentenceProps) {
     ]);
     return <>
     <HideShow show={texts[0] === '\n'}>
-         <br></br>
+	<span className="hover:bg-green-200"><br></br></span>
     </HideShow>
     <span className="hover:bg-green-200" ref={reference} {...getReferenceProps()}>{texts[index]} </span>
     {open && <div
