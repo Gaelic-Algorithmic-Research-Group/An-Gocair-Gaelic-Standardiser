@@ -124,7 +124,7 @@ export default function Paraphraser() {
               <span className="block pb-2 text-center text-gray-600">
                 Normalised text
               </span>
-              <div id="outputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" >
+              <div id="outputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600 overflow-y:scroll" style={{overflowY: 'scroll'}}>
                 {outputData.map((texts, i) => <Sentence key={i} texts={texts} />)}
               </div>
             </label>

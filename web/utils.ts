@@ -29,7 +29,7 @@ export function splitSentence(text, minlength, maxLength) {
             }
         }
     }
-    return res;
+    return res.filter(Boolean);
   }
   
 export function splitSentence1(text, minlength, maxLength) {	
