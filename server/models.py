@@ -14,3 +14,4 @@ class SplitSentenceResponse(BaseModel):
 
 class ParaphraseResponse(BaseModel):
     data: list[str]
+    text: list[str] 

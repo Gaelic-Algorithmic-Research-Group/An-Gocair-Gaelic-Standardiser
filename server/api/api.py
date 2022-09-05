@@ -28,12 +28,12 @@ async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=examp
 async def paraphrase(text: str):
     """Paraphrase sentence."""
 
-    text = " ".join(list(text.replace(" ","_")))
+    toktext = " ".join(list(text.replace(" ","_")))
     # binarize the input
-    pre_bin = pre2goc.binarize(text)
+    pre_bin = pre2goc.binarize(toktext)
     # generate output binaray
-    goc_bin = pre2goc.generate(pre_bin, beam=10, sampling=False)
+    goc_bin = pre2goc.generate(pre_bin, beam=20, sampling=False)
     # generate top 5 suggestions
-    sentences = [pre2goc.decode(v['tokens']).replace(" ","").replace("_"," ") for v in goc_bin[0:5]]
-    return {"data": sentences}
+    sentences = [pre2goc.decode(v['tokens']).replace(" ","").replace("_"," ") for v in goc_bin[0:10]]
+    return {"data":sentences, "text": [text]}
 
