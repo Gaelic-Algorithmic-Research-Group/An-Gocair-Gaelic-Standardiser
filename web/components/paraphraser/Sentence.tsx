@@ -23,7 +23,7 @@ export default function Sentence ({texts}: SentenceProps) {
     </HideShow>
     <span className="hover:bg-green-200" ref={reference} {...getReferenceProps()}>{texts[index]} </span>
     {open && <div
-        className="bg-yellow-100"
+        className="bg-yellow-100 text-sm"
         ref={floating}
         style={{
             position: strategy,
@@ -36,7 +36,7 @@ export default function Sentence ({texts}: SentenceProps) {
             .filter((_, i) => i !== index)
             .map((t, i) => <p
                 key={i}
-                className="hover:bg-blue-200"
+                className="hover:bg-blue-200 text-sm"
                 onClick={() => {
                     setIndex((last) => i < last ? i : i + 1);
 		    setOpen(false); // added this line to close the floating box when a sentence is selected
