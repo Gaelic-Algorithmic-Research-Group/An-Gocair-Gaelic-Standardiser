@@ -9,8 +9,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/cache": "^11.10.3",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
     "@floating-ui/react-dom": "^1.0.0",
     "@floating-ui/react-dom-interactions": "^0.9.3",
+    "@mui/material": "^5.10.3",
+    "@mui/system": "^5.10.3",
     "@tailwindcss/typography": "^0.5.7",
     "autoprefixer": "^10.4.8",
     "copy-to-clipboard": "^3.3.1",
