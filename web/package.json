@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@babel/core": "^7.19.0",
     "@emotion/cache": "^11.10.3",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
