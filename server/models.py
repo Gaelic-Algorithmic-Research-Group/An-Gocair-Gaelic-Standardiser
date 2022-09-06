@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 
 class SplitSentenceRequest(BaseModel):
@@ -9,9 +10,9 @@ class Sentence(BaseModel):
 
 
 class SplitSentenceResponse(BaseModel):
-    data: list[Sentence]
+    data: List[Sentence]
 
 
 class ParaphraseResponse(BaseModel):
-    data: list[str]
-    text: list[str] 
+    data: List[str]
+    text: List[str] 
