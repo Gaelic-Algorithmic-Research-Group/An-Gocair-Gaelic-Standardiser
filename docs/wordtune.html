@@ -1,0 +1,286 @@
+<html>
+<head>
+  <style>
+    .wf-force-outline-none[tabindex="-1"]:focus {
+      outline: none;
+    }
+  </style>
+  <meta charset="utf-8">
+  <title>Wordtune | Your thoughts, in words.</title>
+ 
+  <link href="css/wordtune.min.css"
+    rel="stylesheet" type="text/css">
+    
+  <style>
+    .tns-nav {
+      display: none;
+      text-align: center;
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      right: 0;
+    }
+
+    .section.grey.desktop-only.with-circle {
+      overflow-x: clip;
+      overflow-y: visible;
+    }
+
+    .tns-nav>[aria-controls] {
+      width: 5px;
+      height: 5px;
+      border-radius: 10px;
+      margin: 0 10px;
+      background: #DFDFDF;
+      padding: 0;
+    }
+
+    .tns-nav>.tns-nav-active {
+      background: #6a0094;
+    }
+
+    @media (max-width: 767px) {
+      .tns-nav {
+        display: block;
+      }
+    }
+  </style>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+  <link href="css/main.chunk.css" rel="stylesheet">
+  
+  <style data-jss="" data-meta="Themed">
+    .landing-page-rewriteCard-0-2-7 {
+      width: 100%;
+      border: 1px solid rgb(230, 232, 238);
+      display: flex;
+      position: relative;
+      box-shadow: rgba(63, 62, 77, 0.2) 0px 2px 14px 0px;
+      transition: height 0.1s ease 0s;
+      border-radius: 3px;
+      flex-direction: column;
+      background-color: rgb(255, 255, 255);
+    }
+
+    .landing-page-scrollWrap-0-2-8 {
+      width: 100%;
+      position: relative;
+      background: white;
+      max-height: 280px;
+      overflow-y: auto;
+      transition: height 0.1s ease;
+    }
+
+    @media (max-width: 480px) {
+      .landing-page-scrollWrap-0-2-8 {
+        max-height: 320px;
+      }
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-button {
+      width: 8px;
+      height: 8px;
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-thumb {
+      border: 0px solid #FFFFFF;
+      background: rgba(139, 10, 190, 0.34);
+      border-radius: 50px;
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 10, 190, 0.5);
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-thumb:active {
+      background: rgba(139, 10, 190, 0.5);
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-track {
+      border: 28px none #75498D;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-track:hover {
+      background: white;
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-track:active {
+      background: rgba(139, 10, 190, 0.5);
+    }
+
+    .landing-page-scrollWrap-0-2-8::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    .landing-page-resultsWrap-0-2-9 {
+      z-index: 2;
+      overflow: hidden;
+      position: relative;
+      min-height: 280px;
+      flex-shrink: 0;
+    }
+  </style>
+  <style data-jss="" data-meta="Themed">
+    .landing-page-button-0-2-6 {
+      color: #ffffff;
+      width: 119px;
+      border: solid 1px var(--purple);
+      cursor: pointer;
+      height: 44px;
+      display: flex;
+      outline: none !important;
+      padding: 10px 14px;
+      z-index: 3;
+      font-size: 17px;
+      transition: 0.15s all;
+      align-items: center;
+      border-radius: 4px;
+      flex-direction: row;
+      text-transform: none;
+      justify-content: center;
+      background-color: #8b0abe;
+    }
+
+    .landing-page-button-0-2-6:hover {
+      opacity: 0.85;
+    }
+
+    .landing-page-button-0-2-6:disabled {
+      cursor: default;
+      opacity: 1.0 !important;
+      background-color: rgba(139, 10, 190, 0.33);
+    }
+  </style>
+  <style data-jss="" data-meta="Themed">
+    .landing-page-textarea-0-2-2 {
+      color: #000000;
+      width: 100%;
+      border: none;
+      resize: none;
+      outline: none !important;
+      padding: 24px 10px 10px 24px;
+      font-size: 18px;
+      box-sizing: border-box;
+      min-height: 168px;
+      font-family: Roboto;
+      line-height: 1.54;
+      background-color: white;
+    }
+
+    @media (max-width: 480px) {
+      .landing-page-textarea-0-2-2 {
+        padding: 20px 12px 12px 20px;
+        font-size: 16px;
+        min-height: 126px;
+      }
+    }
+
+    .landing-page-textFooter-0-2-3 {
+      color: #787a80;
+      display: flex;
+      padding: 4px 18px 14px 24px;
+      position: relative;
+      font-size: 13px;
+      align-items: center;
+      font-family: Roboto;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 480px) {
+      .landing-page-textFooter-0-2-3 {
+        padding: 20px 12px 12px 20px;
+        font-size: 16px;
+      }
+    }
+
+    .landing-page-blocked-0-2-4 {
+      height: 238px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #ffffff;
+    }
+
+    .landing-page-messages-0-2-5 {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      position: absolute;
+      font-size: 15px;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <style data-jss="" data-meta="Themed">
+    .landing-page-container-0-2-1 {
+      width: 100%;
+      border: solid 1px #d6d8de;
+      z-index: 3;
+      overflow: hidden;
+      background: white;
+      border-radius: 0;
+    }
+
+    @media (min-width: 480px) {
+      .landing-page-container-0-2-1 {
+        width: 490px;
+        border-radius: 12px;
+      }
+    }
+
+    @media (min-width: 767px) {
+      .landing-page-container-0-2-1 {
+        width: 680px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <section id="rewrite-demo" class="section smaller-padding lp-demo">
+      <h3 class="heading-10 lp-widget idea-prompts-title">Gaelic Scottish RE<br></h3>
+      <div class="div-block-50">
+        <div id="landingPageDemoWidget" class="container demo-widget idea-prompts-container">
+          <div class="landing-page-container-0-2-1">
+            <div style="border-bottom: 1px solid rgb(214, 216, 222);"><textarea id="widget-textarea" rows="2"
+                data-gramm="false" class="landing-page-textarea-0-2-2" placeholder="Write or paste your text here"
+                maxlength="280"></textarea>
+              <div class="landing-page-textFooter-0-2-3">
+              	
+                <div><span><span>32</span> / 280</span></div>
+                <button id="widget-rewrite-button"
+                  class="landing-page-button-0-2-6"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="18"
+                    fill="none" viewBox="0 0 19 18">
+                    <path fill="#fff"
+                      d="M7.795 11.86l-2.971.202-.973-2.863c-.043-.127-.237-.117-.259.022l-.464 3.437-2.474 1.756a.13.13 0 00.064.234l2.56.202 1.06 2.543c.054.117.226.107.259-.02l.605-3.044 2.679-2.235c.108-.085.043-.245-.086-.234zm.375-9.156l-2.27.145-.738-2.18c-.034-.1-.182-.09-.193.022l-.352 2.616-1.872 1.33c-.08.056-.046.168.056.18l1.94.156.807 1.934c.034.09.17.078.193-.023l.465-2.314 2.043-1.699c.068-.056.01-.179-.08-.167zm10.208 2.492l-4.653.313-1.52-4.483c-.069-.213-.375-.179-.41.033l-.726 5.389-3.87 2.75a.202.202 0 00.103.368l4.006.313 1.657 3.98c.08.19.363.156.397-.034l.953-4.773 4.2-3.499c.17-.123.067-.369-.137-.357z">
+                    </path>
+                  </svg> &nbsp; Rewrite</button>
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script language="javascript" type="text/javascript" src="js/test.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) { 
+  localStorage.clear();
+  console.log("Ready");
+});</script>
+
+</body>
+</html>
