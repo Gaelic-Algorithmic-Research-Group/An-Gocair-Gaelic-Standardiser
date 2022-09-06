@@ -4,16 +4,16 @@ export function splitSentence(text, minlength, maxLength) {
     const sentences = [];
     var currentSentence = "";
     for (let i = 0; i < text.length; i++) {
-      var currentChar = text.charAt(i);
-      currentSentence += currentChar;
-      if (currentSentence.length >= minlength && (currentChar.match(/[\r\n.?!]/))) {
-        sentences.push(currentSentence);
-        currentSentence = "";
-      } else if (currentSentence.length >= maxLength) {
-        var lastIndexOfSpace = currentSentence.lastIndexOf(" ");
-        sentences.push(currentSentence.substring(0, lastIndexOfSpace));
-        currentSentence = currentSentence.substring(lastIndexOfSpace + 1);
-      }
+        var currentChar = text.charAt(i);
+        currentSentence += currentChar;
+        if (currentSentence.length >= minlength && (currentChar.match(/[\r\n.?!]/))) {
+            sentences.push(currentSentence);
+            currentSentence = "";
+        } else if (currentSentence.length >= maxLength) {
+            var lastIndexOfSpace = currentSentence.lastIndexOf(" ");
+            sentences.push(currentSentence.substring(0, lastIndexOfSpace));
+            currentSentence = currentSentence.substring(lastIndexOfSpace + 1);
+        }
     }
     if (currentSentence != "") {
         sentences.push(currentSentence);
@@ -30,8 +30,8 @@ export function splitSentence(text, minlength, maxLength) {
         }
     }
     return res.filter(Boolean);
-  }
-  
+}
+
 export function splitSentence1(text, minlength, maxLength) {	
     const res = [];	
     const length = text.length;	

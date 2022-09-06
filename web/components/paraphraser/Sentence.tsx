@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import {useFloating, useInteractions , useClick} from '@floating-ui/react-dom-interactions';
 import HideShow from '@/components/HideShow';
 
@@ -39,7 +39,7 @@ export default function Sentence ({texts}: SentenceProps) {
                 className="hover:bg-blue-200 text-sm"
                 onClick={() => {
                     setIndex((last) => i < last ? i : i + 1);
-		    setOpen(false); // added this line to close the floating box when a sentence is selected
+                    setOpen(false); // added this line to close the floating box when a sentence is selected
                 }}
             >{t}</p>)}
     </div>}

@@ -1,14 +1,13 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./pages/**/*.tsx', './components/**/*.tsx'],
   theme: {
     extend: {},
     colors: {
       transparent: 'transparent',
       white: '#ffffff',
-      gray: colors.blueGray,
+      gray: colors.slate,
       red: colors.red,
       orange: colors.orange,
       amber: colors.amber,
@@ -21,11 +20,6 @@ module.exports = {
       blue: colors.blue,
       indigo: colors.indigo,
       violet: colors.violet,
-    }
-  },
-  variants: {
-    extend: {
-      opacity: ['disabled'],
     }
   },
   plugins: [
