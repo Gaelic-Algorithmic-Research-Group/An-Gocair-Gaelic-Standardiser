@@ -25,6 +25,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  BASE_PATH: '/TransformerAPI'
+
 jobs:
   # Build job
   build:
