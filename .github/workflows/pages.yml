@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BASE_PATH: '/TransformerAPI'
+  BASE_PATH: '/SpellingCorrector'
 
 jobs:
   # Build job
