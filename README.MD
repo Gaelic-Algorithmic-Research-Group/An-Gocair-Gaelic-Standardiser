@@ -1,13 +1,4 @@
-# TransformerAPI
-
-
-## TODO
-- [x] API
-- [x] UI
-- [x] Feature1: suggestion
-- [x] Feature2: sentence
-- [ ] Make UI prettier
-- [ ] Diffchecker
+# Spelling Corrector
 
 
 ## Run Locally server
@@ -61,3 +52,14 @@ cp -r ./web/out/. /usr/share/caddy/
 - server
   - models/
   - api
+  
+
+## TODO
+- [x] API
+- [x] UI
+- [x] Feature1: suggestion
+- [x] Feature2: sentence
+- [ ] Make UI prettier
+- [ ] Diffchecker
+
+
