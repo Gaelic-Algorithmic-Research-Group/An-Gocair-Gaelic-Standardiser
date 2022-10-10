@@ -7,7 +7,7 @@ This repo contains front end and back end of this app:
 To set the server up locally, we have the following steps:
 1) [Run the server](#run-locally-server)
 2) [Setup the web app](#run-locally-web)
-
+3) The web application could be accessed under `web/out` folder
 
 ## Run Locally server
 
@@ -20,7 +20,6 @@ nohup uvicorn server.main:app --reload &
 Open your browser to http://localhost:8000/docs to view the OpenAPI UI.
 
 ## Run locally web
-#run-web-app
 
  * Prerequisite: install Node.JS > 14
 
@@ -35,7 +34,11 @@ yarn dev
 yarn build && yarn export
 ```
 
-## Setup server
+# Setup Environment
+
+To allow people to access publically, we need to setup caddy or other web hosting server.
+
+## Setup caddy
 ```
 # download and install caddy
 curl -O caddy https://caddyserver.com/api/download?os=linux&arch=arm64&p=github.com%2Fcaddy-dns%2Fcloudflare&idempotency=91119776165967
@@ -56,7 +59,7 @@ cp -r ./web/out/. /usr/share/caddy/
 ```
 
 
-## Directory
+## Structure
 
 - web
 - server
@@ -71,5 +74,6 @@ cp -r ./web/out/. /usr/share/caddy/
 - [x] Feature2: sentence
 - [ ] Make UI prettier
 - [ ] Diffchecker
+
 
 
