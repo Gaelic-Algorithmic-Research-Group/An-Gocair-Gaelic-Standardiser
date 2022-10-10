@@ -4,6 +4,14 @@ This repo contains front end and back end of this app:
 - Back-end, we used `fastapi` and `uvicorn` to setup an API server using python
 - Front-end, we used nodejs, and typescript
 
+## Structure
+```
+- web
+- server
+  - models/
+  - api/api.py (load model and host api)
+```
+
 To set the server up locally, we have the following steps:
 1) [Run the server](#run-locally-server)
 2) [Setup the web app](#run-locally-web)
@@ -59,12 +67,7 @@ cp -r ./web/out/. /usr/share/caddy/
 ```
 
 
-## Structure
 
-- web
-- server
-  - models/
-  - api
   
 
 ## TODO
