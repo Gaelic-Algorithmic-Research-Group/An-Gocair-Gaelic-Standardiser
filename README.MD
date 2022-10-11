@@ -22,20 +22,20 @@ To set the server up locally, we have the following steps:
 To run locally server in debug mode run:
 
 ``` bash
-bash ./create_virtualenv.sh
-nohup uvicorn server.main:app --reload &
+pip3 install -r requirements/base.txt  --no-cache-dir
+nohup uvicorn server.main:app --reload --host 0.0.0.0 &
 ```
-Open your browser to http://localhost:8000/docs to view the OpenAPI UI.
+Open your browser to http://localhost:8000/docs to view the API UI.
 
 ## Run locally web
 
- * Prerequisite: install Node.JS > 14
-
+ * Prerequisite: install [Node.JS > 14](https://nodejs.org/en/download/package-manager/), install [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
 ``` bash
 cd web
 yarn install
 
 ## dev - open your browser to http://localhost:3000 to view the UI.
+### change .env.development to your ip address
 yarn dev
 
 ## export 
