@@ -20,7 +20,7 @@ pre2goc = TransformerModel.from_pretrained(
 
 def translate(inputs):
     inputs = " ".join(list(inputs.replace(" ","_")))
-    return pre2goc.translate(text).replace(" ","").replace("_"," ")
+    return pre2goc.translate(inputs).replace(" ","").replace("_"," ")
 
 if args.text:
     print(translate(args.text))
