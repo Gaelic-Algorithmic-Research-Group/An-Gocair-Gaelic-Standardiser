@@ -30,14 +30,17 @@ if args.file:
         text = f.readlines()
     
     # process the text sentence by sentence and keep the \n
-    with open(args.file + '.pred', 'w') as f:
+    with open('pred.'+args.file, 'w') as f:
         for line in text:
             for sentence in line.split('.'):
-                f.write(translate(sentence) + '.')
-            f.write('\n')
+                if sentence =="\n":
+                    f.write("\n")
+                else:
+                    sentence = sentence.strip()+'.'
+                    f.write(translate(sentence)+" ")
 
 if not args.text and not args.file:
     print("Please specify either --text or --file")
 
-if __main__ == '__name__':
+if __name__ == "main":
     translate(args.text)
