@@ -18,8 +18,12 @@ pre2goc = TransformerModel.from_pretrained(
     data_name_or_path='binary/', # binary data path
 )
 
+def translate(inputs):
+    inputs = " ".join(list(inputs.replace(" ","_")))
+    return pre2goc.translate(text).replace(" ","").replace("_"," "))
+
 if args.text:
-    print(pre2goc.translate(args.text))
+    print(translate(args.text))
 
 if args.file:
     with open(args.file, 'r') as f:
@@ -29,5 +33,11 @@ if args.file:
     with open(args.file + '.pred', 'w') as f:
         for line in text:
             for sentence in line.split('.'):
-                f.write(pre2goc.translate(sentence) + '.')
+                f.write(translate(sentence) + '.')
             f.write('\n')
+
+if not args.text and not args.file:
+    print("Please specify either --text or --file")
+
+if __main__ == '__name__':
+    translate(args.text)
