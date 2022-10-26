@@ -1,0 +1,13 @@
+nohup: uvicorn: No such file or directory
+INFO:     Will watch for changes in these directories: ['/Users/lfrance/Library/CloudStorage/OneDrive-TheAlanTuringInstitute/002_Projects/AAAH/SpellingCorrector']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [97874] using statreload
+email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+2022-10-11 15:34:29 | INFO | fairseq.tasks.text_to_speech | Please install tensorboardX: pip install tensorboardX
+2022-10-11 15:34:31 | INFO | fairseq.file_utils | loading archive file ./server/models/
+2022-10-11 15:34:31 | INFO | fairseq.tasks.translation | [preGOC] dictionary: 152 types
+2022-10-11 15:34:31 | INFO | fairseq.tasks.translation | [postGOC] dictionary: 128 types
+INFO:     Stopping reloader process [97874]
+/usr/local/anaconda3/lib/python3.8/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
