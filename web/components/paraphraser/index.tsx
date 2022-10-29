@@ -14,7 +14,7 @@ export default function Paraphraser() {
   const [outputText, setOutputText] = useState("");
   const [outputData, setOutputData] = useState([[]]);
   const [paraphraseLoading, setParaphraseLoading] = useState(false);
-  const disabled = useMemo(() => inputText.length <= 0 || inputText.length > 500 || paraphraseLoading, [inputText, paraphraseLoading])
+  const disabled = useMemo(() => inputText.length <= 0 || inputText.length > 2000 || paraphraseLoading, [inputText, paraphraseLoading])
   const inputTextRef = useRef(null);
   const minToken = 32;
   const maxToken = 128;
@@ -24,16 +24,16 @@ export default function Paraphraser() {
   const messages = {
     en: {
       headtitle: "An Gocair: Gaelic Standardiser",
-      smallmodel: "Small Model",
-      stablemodel: "Stable Model",
+      smallmodel: "Fast Model",
+      stablemodel: "Best Model",
       developingmodel: "Developing Model",
       inputHeader: "Enter the text you want to GOCify",
       outputHeader: "GOCified text",
-      example: "Example",
+      example: "Sample texts",
       action: "Convert to GOC",
       actioning: "Converting to GOC",
-      clear: "Clear all",
-      copy: "Copy result",
+      clear: "Clear",
+      copy: "Copy",
       paraphrasing: "Working on it...",
       clearsuccess: "Successfully cleared content.",
       copysuccess: "Successfully copied to clipboard.",
@@ -41,9 +41,9 @@ export default function Paraphraser() {
       feedback: "Contact us to increase your character limit."
     },
     gd: {
-      headtitle: "An GOCair",
-      smallmodel: "Am modail beag",
-      stablemodel: "Am modail seasmhach",
+      headtitle: "An Gocair",
+      smallmodel: "Am modail luath",
+      stablemodel: "Am modail as fheàrr",
       developingmodel: "Am modail fo obair",
       inputHeader: "Cuir a-steach na tha thu ag iarraidh ann an litreachadh GOC",
       outputHeader: "An teacsa ann an GOC",
@@ -63,7 +63,7 @@ export default function Paraphraser() {
 
   const handleParaphraseSubmission = () => {
     setParaphraseLoading(true);
-    const loadingToast = toast.loading('Paraphrasing...');
+    const loadingToast = toast.loading('Ag obair air...');
     Promise.all(splitSentence(inputText, minToken, maxToken)
     .map(text => {
       console.log(text);
@@ -103,7 +103,7 @@ export default function Paraphraser() {
           return Promise.reject();
           })
       } else {
-        const url = new URL(`https://c8c8-192-41-104-32.ngrok.io/paraphrase`);
+        const url = new URL(`https://f1e8-192-41-104-72.ngrok.io/paraphrase`);
         url.searchParams.append('text', text);
         return fetch(url.toString(),{method: "get", headers: new Headers({"ngrok-skip-browser-warning": "69420",})})
           .then(res => {
@@ -124,9 +124,9 @@ export default function Paraphraser() {
     }))
       .then((datas) => {
 	setOutputData(datas);
-        toast.success("Successfully paraphrased. Enjoy!");
+        toast.success("");
       }, _ => {
-        toast.error('We ran into an issue when trying to paraphrase. Please try again later.');
+        toast.error('Dh’èirich duilgheadas ris nach robh dùil. Nach fheuch thu ris a-rithist an ceann greis?');
       }).finally(() => {
         toast.dismiss(loadingToast);
         setParaphraseLoading(false);
@@ -148,20 +148,20 @@ export default function Paraphraser() {
       if (span.innerHTML === '<br>') {text += "\n"} else{text += span.innerHTML;}
    }
     copy(text);
-    toast.success('Copied result in your clipboard. Enjoy!');
+    toast.success('Chaidh lethbhreac dhen toradh a chur air an stòr-bhòrd.');
   }
 
   const handleClear = () => {
     setInputText("");
     setOutputText("");
-    toast.success('Successfully cleared content.');
+    toast.success('Chaidh an t-susbaint fhalamhachadh.');
   }
 
   const clearlinebreak = () => {
     // var inputText = (document.getElementById("inputText") as HTMLInputElement).value;
     var changedinputText = inputText.replace('¬\n', '');
     changedinputText = changedinputText.replace(/\n/g, ' ');
-    setInputText(changedinputText);
+    setInputText(changedinputText.replace(/  +/g, ' '));
   }
   const loadSameple = () => {
     var text = "here the text that you want to input.";
@@ -173,7 +173,10 @@ export default function Paraphraser() {
 		"TD MU DHAOINE GHEIBH BOGADH BATHAIDH, ATH-BHEOTHACHADH.",
 		"'S é 'n duine nuadh a theirear ris an nuadh chreatuir so,",
 		"Tha an cogadh a sior dhol air adhart ann an Cuba.",
-		"Cha robh esan a' dol na bu mhiosa; cha robh sìon na b' fheàrr. Dh'fhalbh i seo far a robh an sagart. Dh'innis an sagart gu feumadh ise a' chlann a chur do home. Cha robh rathad aice a bhith beò mar siod. Dh'fheumadh i feuchainn ri rud-eigin a chosnadh dhi fhéin."]
+    `“ged a bhtodh a’ righ marabh a mairleach, ors i se, “bu bheg do chuid sa dhern iite seo, !’ or: i3e.`,
+    `La r-na-mhaireach thanaig an dotar a-ri—ist agas thg e leis a’ minister a nuas a chiomhead air a’ghille so.`,
+    `"S e bric a bha sin."A!well" ors esan,"taingdhut, a Dhia" ors esan`,
+    `"A gabha tu" ors eisean "dine comhla ruit" ors esan?`];
     var randomtext = array[Math.floor(Math.random() * array.length)];
     //document.querySelector('textarea').value = randomtext;
     setInputText(randomtext);
@@ -189,7 +192,7 @@ export default function Paraphraser() {
     
     <select onChange={(e) => setLocale(e.target.value)} defaultValue={locale}>
       <option value="en">English</option>
-      <option value="gd">Gaelic</option>
+      <option value="gd">Gàidhlig</option>
     </select>
     <header className="bg-white">
     <link rel="stylesheet" href="style.css" />
@@ -216,8 +219,8 @@ export default function Paraphraser() {
         <i className="fab fa-twitter"></i>
       </a>
 
-      <a href="#" className="pinterest-btn">
-        <i className="fab fa-pinterest"></i>
+      <a href="mailto:w.lamb@ed.ac.uk" className="pinterest-btn">
+	<i className="fas fa-envelope"></i>
       </a>
 
       <a href="#" className="linkedin-btn">
@@ -259,7 +262,7 @@ export default function Paraphraser() {
         </HideShow>
         <HideShow show={paraphraseMode === 'latest'}>
           <div className="p-2 mt-2 font-semibold text-center rounded-lg bg-amber-50 text-amber-700">
-            Developing model has the largest datasets. It is still trouble shooting. [20221027].
+            Developing model has the largest datasets. It is still trouble shooting. [20221028].
           </div>
         </HideShow>
         <div className="p-4 sm:px-0">
@@ -273,7 +276,7 @@ export default function Paraphraser() {
                   <FormattedMessage id="inputHeader"></FormattedMessage>
                 </IntlProvider>
               </span>
-              <textarea name="inputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" placeholder="Cha'n 'eil mi 'fuirach 'nam thigh mór an-seo ann an Éirinn, gu mi-fhortanach, ach siod a' cheud tigh a bh' agam-sa" value={inputText} onChange={handleInputTextChange} disabled={paraphraseLoading} ref={inputTextRef}></textarea>
+              <textarea id="inputarea" name="inputText" className="block w-full p-4 border-2 border-gray-200 rounded-lg resize-none h-96 disabled:opacity-60 sm:text-sm md:text-lg focus:outline-none focus:ring focus:border-blue-600" placeholder="" value={inputText} onChange={handleInputTextChange} disabled={paraphraseLoading} ref={inputTextRef}></textarea>
             </label>
             <label htmlFor="outputText">
               <span className="block pb-2 text-center text-gray-600">
@@ -289,8 +292,8 @@ export default function Paraphraser() {
         </div>
         <div className="relative flex items-center justify-center">
           <div className="absolute left-0">
-            <span className={`font-medium ${inputText.length > 500 ? 'text-red-600' : 'text-green-600'}`}>{inputText.length}</span><span className="text-gray-500">/500 </span>
-            <span className={` block font-medium ${inputText.length > 500 ? 'text-blue-500' : 'hidden'}`}><a href="mailto:amitgaur.web@gmail.com">Contact us to get more than 500 characters.</a></span>
+            <span className={`font-medium ${inputText.length > 2000 ? 'text-red-600' : 'text-green-600'}`}>{inputText.length}</span><span className="text-gray-500">/2000 </span>
+            <span className={` block font-medium ${inputText.length > 2000 ? 'text-blue-500' : 'hidden'}`}><a href="mailto:w.lamb@ed.ac.uk">Contact us to get more than 2000 characters.</a></span>
           </div>
           <button type="button" className="flex justify-content:space-between items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" id="inputText123" onClick={clearlinebreak}>
                 <svg className="w-5 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -298,7 +301,7 @@ export default function Paraphraser() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1\
  8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                 </svg>
-		remove line breaks
+		Remove line breaks
           </button>
           <button type="button" className="flex justify-content:space-between items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50" onClick={loadSameple}>
                 <svg className="w-5 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +322,7 @@ export default function Paraphraser() {
 <IntlProvider locale={locale} messages={messages[locale]}><FormattedMessage id="actioning"></FormattedMessage></IntlProvider> : <IntlProvider locale={locale} messages={messages[locale]}><FormattedMessage id="action"></FormattedMessage></IntlProvider> }
           </button>
           <div className="absolute right-0 flex justify-center align-middle">
-            <HideShow show={inputText.length > 10 && inputText.length < 500}>
+            <HideShow show={inputText.length > 10 && inputText.length < 2000}>
               <button type="button" className="flex items-center justify-center max-w-md px-4 py-2 mx-2 font-medium text-red-500 border border-transparent rounded-md hover:text-red-600 focus:text-red-600 bg-red-50" onClick={handleClear}>
                 <svg className="w-6 h-6 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <title>Clear all</title>
