@@ -11,8 +11,7 @@ export default function Paraphraser() {
   const intl = useIntl()
   const [paraphraseMode, setParaphraseMode] = useState("stable");
   const [inputText, setInputText] = useState("");
-  const [outputText, setOutputText] = useState("");
-  const [outputData, setOutputData] = useState([[]]);
+  const [outputData, setOutputData] = useState<string[][]>([]);
   const [paraphraseLoading, setParaphraseLoading] = useState(false);
   const disabled = useMemo(
     () => inputText.length <= 0 || inputText.length > 2000 || paraphraseLoading,
