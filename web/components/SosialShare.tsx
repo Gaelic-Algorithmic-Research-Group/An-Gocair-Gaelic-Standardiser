@@ -10,12 +10,12 @@ function SosialShare() {
   useEffect(() => {
     if (typeof window === undefined) return;
     const postUrl = encodeURIComponent(document.location.href);
-    const postTitle = encodeURIComponent("Hi everyone, please check this out: ");
+    const postTitle = encodeURIComponent("Am faca sibh an t-inneal seo? ");
     // const postImg = '';
     setFacebook(`https://www.facebook.com/sharer.php?u=${postUrl}`)
     setTwitter(`https://twitter.com/share?url=${postUrl}&text=${postTitle}`)
     // setPinterest(`https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`)
-    setLinkedin(`https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`)
+    setLinkedin(`https://www.linkedin.com/shareArticle?url=${postUrl}&title=An Gocair is a new transformer-based tool for normalising Gaelic text to modern spelling conventions. Think of it like an AI-assisted spell corrector`)
     setWhatsapp(`https://wa.me/?text=${postTitle} ${postUrl}`)
   }, []);
   return <div className="share-btn-container">
@@ -30,7 +30,7 @@ function SosialShare() {
     <a href={pinterestLink}>
       <i className="fas fa-pinterest"></i>
     </a> */}
-    <a href="mailto:w.lamb@ed.ac.uk">
+    <a href="mailto:garg@ed.ac.uk">
       <i className="fas fa-envelope"></i>
     </a>
     

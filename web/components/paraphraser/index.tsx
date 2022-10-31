@@ -264,7 +264,7 @@ export default function Paraphraser() {
                   inputText.length > 2000 ? "text-blue-500" : "hidden"
                 }`}
               >
-                <a href="mailto:w.lamb@ed.ac.uk">
+                <a href="mailto:garg@ed.ac.uk">
                   Contact us to get more than 2000 characters.
                 </a>
               </span>
