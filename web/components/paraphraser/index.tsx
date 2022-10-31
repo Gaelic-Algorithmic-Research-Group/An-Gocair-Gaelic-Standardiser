@@ -20,7 +20,7 @@ export default function Paraphraser() {
   );
   const inputTextRef = useRef(null);
   const minToken = 32;
-  const maxToken = 128;
+  const maxToken = 256;
   const handleInputTextChange = (e) => {
     setInputText(e.target.value);
   };
@@ -30,7 +30,6 @@ export default function Paraphraser() {
     const loadingToast = toast.loading("Ag obair air...");
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
-        console.log(text);
         if (paraphraseMode === "small") {
           const url = new URL(`http://178.62.196.197:8000/paraphrase`);
           url.searchParams.append("text", text);
@@ -62,7 +61,7 @@ export default function Paraphraser() {
             return Promise.reject();
           });
         } else {
-          const url = new URL(`https://f1e8-192-41-104-72.ngrok.io/paraphrase`);
+          const url = new URL(`https://7b20-192-41-105-190.ngrok.io/paraphrase`);
           url.searchParams.append("text", text);
           return fetch(url.toString(), {
             method: "get",
@@ -122,7 +121,7 @@ export default function Paraphraser() {
 
   const handleClear = () => {
     setInputText("");
-    setOutputText("");
+    setOutputData([[]]);
     toast.success("Chaidh an t-susbaint fhalamhachadh.");
   };
 
@@ -211,7 +210,7 @@ export default function Paraphraser() {
           <HideShow show={paraphraseMode === "latest"}>
             <div className="p-2 mt-2 font-semibold text-center rounded-lg bg-amber-50 text-amber-700">
               Developing model has the largest datasets. It is still trouble
-              shooting. [20221028].
+              shooting. [20221031:morning].
             </div>
           </HideShow>
           <div className="p-4 sm:px-0">
