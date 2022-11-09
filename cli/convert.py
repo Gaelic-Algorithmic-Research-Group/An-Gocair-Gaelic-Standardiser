@@ -52,7 +52,7 @@ if args.file:
                     f.write(translate(sentence)+" ")
 
 if not args.text and not args.file:
-    print("Please specify either --text or --file")
+    logging.warning("Please specify either --text or --file")
 
 if __name__ == "main":
     translate(args.text)
