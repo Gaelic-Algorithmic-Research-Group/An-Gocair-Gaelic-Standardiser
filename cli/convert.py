@@ -47,11 +47,11 @@ if args.file:
         for line in text:
             for sentence in line.split('.'):
                 if sentence =="\n":
-                    translated_text.append("\n")
+                    translated_text += "\n"
                 else:
                     sentence = sentence.strip()+'.'
                     translated_sentence = translate(sentence) # Run the model
-                    translated_text.append(translated_sentence+" ")
+                    translated_text += translated_sentence + " "
             f.write(translated_text)
 
 
