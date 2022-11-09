@@ -42,17 +42,22 @@ if args.file:
         logging.error('!!! File is empty !!!')
 
     # process the text sentence by sentence and keep the \n
+    translated_text = ""
     with open('pred.'+args.file, 'w') as f:
         for line in text:
             for sentence in line.split('.'):
                 if sentence =="\n":
-                    f.write("\n")
+                    translated_text.append("\n")
                 else:
                     sentence = sentence.strip()+'.'
-                    f.write(translate(sentence)+" ")
+                    translated_sentence = translate(sentence) # Run the model
+                    translated_text.append(translated_sentence+" ")
+            f.write(translated_text)
+
+
 
 if not args.text and not args.file:
-    logging.warning("Please specify either --text or --file")
+    logging.error("Please specify either --text or --file")
 
 if __name__ == "main":
     translate(args.text)
