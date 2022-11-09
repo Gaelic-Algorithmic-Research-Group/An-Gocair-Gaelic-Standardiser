@@ -3,6 +3,7 @@
 
 from fairseq.models.transformer import TransformerModel
 import argparse
+import logging
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--model', type=str, help='model path')
@@ -22,6 +23,11 @@ def translate(inputs):
     return pre2goc.translate(inputs).replace(" ","").replace("_"," ")
 
 if args.text:
+
+# Check string is not empty
+    if not args.text.strip():
+        logging.error("!!! Please enter text to translate !!!")
+
     translated_result = translate(args.text)
     print(translated_result)
 
@@ -31,10 +37,7 @@ if args.file:
     # check file is not empty
         first_char = f.read(1)
         if not first_char:
-            print("\n\n\n")
-            print("File is empty")
-            print("\n\n\n")
-            exit()
+            logging.error('!!! File is empty !!!')
     # read in text from file
         text = f.readlines()
 
