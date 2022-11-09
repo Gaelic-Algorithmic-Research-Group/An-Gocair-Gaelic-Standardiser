@@ -33,15 +33,13 @@ if args.text:
 
 if args.file:
     with open(args.file, 'r') as f:
-
-    # check file is not empty
-        first_char = f.read(1)
-        if not first_char:
-            logging.error('!!! File is empty !!!')
-    # read in text from file
         text = f.readlines()
 
-
+    # check file is not empty, ignoring leading blank lines and spaces
+    text_test = " ".join(text)
+    text_test = text_test.strip()
+    if not text_test:
+        logging.error('!!! File is empty !!!')
 
     # process the text sentence by sentence and keep the \n
     with open('pred.'+args.file, 'w') as f:
