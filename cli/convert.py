@@ -22,7 +22,8 @@ def translate(inputs):
     return pre2goc.translate(inputs).replace(" ","").replace("_"," ")
 
 if args.text:
-    print(translate(args.text))
+    translated_result = translate(args.text)
+    print(translated_result)
 
 if args.file:
     with open(args.file, 'r') as f:
@@ -30,7 +31,9 @@ if args.file:
     # check file is not empty
         first_char = f.read(1)
         if not first_char:
+            print("\n\n\n")
             print("File is empty")
+            print("\n\n\n")
             exit()
     # read in text from file
         text = f.readlines()
