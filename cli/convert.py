@@ -3,7 +3,7 @@
 
 from fairseq.models.transformer import TransformerModel
 import argparse
-import logging
+import os.path
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--model', type=str, help='model path')
@@ -12,6 +12,7 @@ argparser.add_argument('--file', type=str, help='file to translate')
 args = argparser.parse_args()
 
 # Load the model
+# TODO this outputs a bunch of model info to the screen - can we avoid it?
 pre2goc = TransformerModel.from_pretrained(
     'models/',
     checkpoint_file='checkpoint_best.pt', # model loc
@@ -25,19 +26,22 @@ def translate(inputs):
 if args.text:
     # Check string is not empty
     if not args.text.strip():
-        logging.error("!!! Please enter text to translate !!!")
+        raise Exception("Please enter text to translate")
     translated_result = translate(args.text)
     print(translated_result)
 
 if args.file:
-    with open(args.file, 'r') as f:
-        text = f.readlines() # returns every line in the file in a list
+    if os.path.isfile(args.file):
+        with open(args.file, 'r') as f:
+            text = f.readlines() # returns every line in the file in a list
+    else:
+        raise Exception("File does not exist")
 
     # check file is not empty, ignoring leading blank lines and spaces
     text_test = " ".join(text)
     text_test = text_test.strip()
     if not text_test:
-        logging.error('!!! File is empty !!!')
+        raise Exception('File is empty')
 
     # process the text sentence by sentence, respecting newline characters
     translated_text = "" # initialize the translated text string
@@ -61,7 +65,7 @@ if args.file:
         f.write(translated_text)
 
 if not args.text and not args.file:
-    logging.error("Please specify either --text or --file")
+    raise Exception("Please specify either the text or the file to translate")
 
 if __name__ == "main":
     translate(args.text)
