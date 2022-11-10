@@ -66,6 +66,3 @@ if args.file:
 
 if not args.text and not args.file:
     raise Exception("Please specify either the text or the file to translate")
-
-if __name__ == "main":
-    translate(args.text)
