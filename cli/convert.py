@@ -42,17 +42,25 @@ if args.file:
         logging.error('!!! File is empty !!!')
 
     # process the text sentence by sentence and keep the \n
+    # ["My sentence. My sentence. My sentence. My sentence.\n", "My second sentence.\n", "\n", "My third sentence.\n"]
+
+    # ["My sentence.", "My sentence?", "My sentence!","My sentence.","\n", "My second sentence.","\n", "\n", "My third sentence.","\n"]
+
+    # What happens with white spaces?
+
+
+
     translated_text = ""
     with open('pred.'+args.file, 'w') as f:
         for line in text:
             for sentence in line.split('.'):
-                if sentence =="\n":
-                    translated_text.append("\n")
+                if sentence.strip() =="\n":
+                    translated_text += "\n"
                 else:
                     sentence = sentence.strip()+'.'
                     translated_sentence = translate(sentence) # Run the model
-                    translated_text.append(translated_sentence+" ")
-            f.write(translated_text)
+                    translated_text += translated_sentence + " "
+        f.write(translated_text)
 
 
 
