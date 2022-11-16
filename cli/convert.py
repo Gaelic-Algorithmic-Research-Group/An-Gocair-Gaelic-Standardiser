@@ -3,7 +3,7 @@
 
 from fairseq.models.transformer import TransformerModel
 import argparse
-import logging
+import os.path
 
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--model', type=str, help='model path')
@@ -12,6 +12,7 @@ argparser.add_argument('--file', type=str, help='file to translate')
 args = argparser.parse_args()
 
 # Load the model
+# TODO this outputs a bunch of model info to the screen - can we avoid it?
 pre2goc = TransformerModel.from_pretrained(
     'models/',
     checkpoint_file='checkpoint_best.pt', # model loc
@@ -23,49 +24,45 @@ def translate(inputs):
     return pre2goc.translate(inputs).replace(" ","").replace("_"," ")
 
 if args.text:
-
-# Check string is not empty
+    # Check string is not empty
     if not args.text.strip():
-        logging.error("!!! Please enter text to translate !!!")
-
+        raise Exception("Please enter text to translate")
     translated_result = translate(args.text)
     print(translated_result)
 
 if args.file:
-    with open(args.file, 'r') as f:
-        text = f.readlines()
+    if os.path.isfile(args.file):
+        with open(args.file, 'r') as f:
+            text = f.readlines() # returns every line in the file in a list
+    else:
+        raise Exception("File does not exist")
 
     # check file is not empty, ignoring leading blank lines and spaces
     text_test = " ".join(text)
     text_test = text_test.strip()
     if not text_test:
-        logging.error('!!! File is empty !!!')
+        raise Exception('File is empty')
 
-    # process the text sentence by sentence and keep the \n
-    # ["My sentence. My sentence. My sentence. My sentence.\n", "My second sentence.\n", "\n", "My third sentence.\n"]
-
-    # ["My sentence.", "My sentence?", "My sentence!","My sentence.","\n", "My second sentence.","\n", "\n", "My third sentence.","\n"]
-
-    # What happens with white spaces?
-
-
-
-    translated_text = ""
-    with open('pred.'+args.file, 'w') as f:
-        for line in text:
+    # process the text sentence by sentence, respecting newline characters
+    translated_text = "" # initialize the translated text string
+    text = [line.strip() for line in text] # note that strip removes newline characters
+    is_text = [bool(line) for line in text] # empty strings in the list are False and they denote new paragraphs
+    for ii in range(len(text)):
+        # loop through every line in the text, split the lines into sentences and translate sentence by sentence.
+        # the end of a sentence is identified by a '.'
+        if is_text[ii]:
+            line = text[ii]
             for sentence in line.split('.'):
-                if sentence.strip() =="\n":
-                    translated_text += "\n"
-                else:
-                    sentence = sentence.strip()+'.'
+                if sentence:
+                    sentence = sentence.strip() + '.'
                     translated_sentence = translate(sentence) # Run the model
                     translated_text += translated_sentence + " "
+            translated_text += "\n" # at the end of the line, insert a new line character
+        else:
+            translated_text += "\n" # start new paragraph
+    # write the translated text to disk
+    with open("pred." + args.file, 'w') as f:
         f.write(translated_text)
 
-
-
 if not args.text and not args.file:
-    logging.error("Please specify either --text or --file")
-
-if __name__ == "main":
-    translate(args.text)
+    raise Exception("Please specify either the text or the file to translate")

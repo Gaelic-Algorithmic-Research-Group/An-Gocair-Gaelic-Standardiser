@@ -34,6 +34,6 @@ async def paraphrase(text: str):
     # generate output binaray
     goc_bin = pre2goc.generate(pre_bin, beam=20, sampling=False)
     # generate top 5 suggestions
-    sentences = [pre2goc.decode(v['tokens']).replace(" ","").replace("_"," ") for v in goc_bin[0:10]]
+    sentences = [pre2goc.decode(v['tokens']).replace(" ","").replace("_"," ") for v in goc_bin[0:3]]
     return {"data":sentences, "text": [text]}
 

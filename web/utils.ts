@@ -1,6 +1,9 @@
 export function splitSentence(text, minlength, maxLength) {
   const sentences = [];
   var currentSentence = "";
+  // loop over text
+  text = text.replace('¬\n','');
+
   for (let i = 0; i < text.length; i++) {
     var currentChar = text.charAt(i);
     currentSentence += currentChar;
@@ -18,7 +21,8 @@ export function splitSentence(text, minlength, maxLength) {
   }
   const res = [];
   for (let i = 0; i < sentences.length; i++) {
-    var extractN = sentences[i].split(/(?=\n)/g);
+    //var extractN = sentences[i].split(/(?=\n)/g);
+    var extractN = sentences[i].split(/(\n)/g);
     for (let j = 0; j < extractN.length; j++) {
       if (extractN[j] === "\n") {
         res.push(extractN[j]);
@@ -27,9 +31,66 @@ export function splitSentence(text, minlength, maxLength) {
       }
     }
   }
-  return res.filter(Boolean);
+  return removeDuplicates(res.filter(Boolean));
 }
 
+export function splitSentenceMichael(text, minlength, maxLength) {
+  const sentences = [];
+  var currentSentence = "";
+  // loop over text
+  text = text.replace('¬\n','');
+  text = text.replace('\n','');
+  for (let i = 0; i < text.length; i++) {
+    var currentChar = text.charAt(i);
+    currentSentence += currentChar;
+    if (currentSentence.length >= minlength && currentChar.match(/[\r\n.?!]/)) {
+      sentences.push(currentSentence);
+      currentSentence = "";
+    } else if (currentSentence.length >= maxLength) {
+      var lastIndexOfSpace = currentSentence.lastIndexOf(" ");
+      sentences.push(currentSentence.substring(0, lastIndexOfSpace));
+      currentSentence = currentSentence.substring(lastIndexOfSpace + 1);
+    }
+  }
+  if (currentSentence != "") {
+    sentences.push(currentSentence);
+  }
+  const res = [];
+  for (let i = 0; i < sentences.length; i++) {
+    //var extractN = sentences[i].split(/(?=\n)/g);
+    var extractN = sentences[i].split(/(\n)/g);
+    for (let j = 0; j < extractN.length; j++) {
+      if (extractN[j] === "\n") {
+        res.push(extractN[j]);
+      } else {
+        res.push(extractN[j].trim());
+      }
+    }
+  }
+  return removeDuplicates(res.filter(Boolean));
+}
+
+
+export function removeDuplicates(arr) {
+  let isduplicate = 0
+  let out = [];
+  let len = arr.length;
+  let j = 0;
+  for(let i = 0; i < len; i++) {
+     let item = arr[i];
+     if (item === '\n' && arr[i+1] === '\n'){
+         isduplicate +=1
+         if (isduplicate >= 2){
+            out[j++] = item
+         }
+     }
+     else{
+        isduplicate = 0
+        out[j++] = item
+     }
+  }
+  return out;
+}
 export function splitSentence1(text, minlength, maxLength) {
   const res = [];
   const length = text.length;
