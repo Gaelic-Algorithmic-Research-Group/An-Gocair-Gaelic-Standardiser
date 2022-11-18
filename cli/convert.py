@@ -39,7 +39,7 @@ def convert(text, file):
     if text:
         # Check string is not empty
         if not text.strip():
-            raise Exception("Please enter text to translate")
+            raise ValueError("Please enter text to translate")
         translated_text = translate(text)
         print(translated_text)
 
@@ -54,7 +54,7 @@ def convert(text, file):
         text_test = " ".join(file_text)
         text_test = text_test.strip()
         if not text_test:
-            raise Exception('File is empty')
+            raise ValueError('File is empty')
 
         # process the text sentence by sentence, respecting newline characters
         translated_text = "" # initialize the translated text string
@@ -75,7 +75,7 @@ def convert(text, file):
                 translated_text += "\n" # start new paragraph
         # write the translated text to disk
         # TODO This is a bit of a mess
-        with open("pred." + file, 'w') as f:
+        with open(os.path.join(os.path.dirname(file), "pred." + os.path.basename(file)), 'w') as f:
             f.write(translated_text)
 
     if not text and not file:

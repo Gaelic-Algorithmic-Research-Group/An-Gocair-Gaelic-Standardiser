@@ -54,3 +54,6 @@ output/
 myflaskapp/
 bower_components
 .DS_Store
+
+# translated text files
+pred.*
