@@ -23,10 +23,13 @@ def convert(text, file):
     # Load the model
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
+    dirname = os.path.dirname(__file__)
+    models_path = os.path.join(dirname, 'models/')
+    binary_path = os.path.join(dirname, 'binary/')
     pre2goc = TransformerModel.from_pretrained(
-        'models/',
+        models_path,
         checkpoint_file='checkpoint_best.pt', # model loc
-        data_name_or_path='binary/', # binary data path
+        data_name_or_path=binary_path, # binary data path
     )
 
     def translate(inputs):
