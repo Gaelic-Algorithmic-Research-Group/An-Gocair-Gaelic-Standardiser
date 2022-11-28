@@ -29,22 +29,7 @@ export default function Paraphraser() {
     const loadingToast = toast.loading("Ag obair air...");
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
-        if (paraphraseMode === "small") {
-          const url = new URL(`http://localhost:8000/paraphrase`);
-          url.searchParams.append("text", text);
-          return fetch(url.toString()).then((res) => {
-            if (res && res.ok) {
-              return res.json().then((content) => {
-                if (content.text[0] === "\n") {
-                  return content.text as string[];
-                } else {
-                  return content.data as string[];
-                }
-              });
-            }
-            return Promise.reject();
-          });
-        } else if (paraphraseMode === "stable") {
+        if (paraphraseMode === "small" || paraphraseMode == "stable") {
           const url = new URL(`http://localhost:8000/paraphrase`);
           url.searchParams.append("text", text);
           return fetch(url.toString()).then((res) => {
