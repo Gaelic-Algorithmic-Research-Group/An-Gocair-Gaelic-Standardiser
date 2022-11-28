@@ -1,0 +1,21 @@
+name: "Unit tests"
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Set up environment
+      run: pip install -r requirements.txt
+    - name: Test with pytest
+      run: pytest
