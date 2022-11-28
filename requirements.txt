@@ -4,6 +4,7 @@ uvicorn==0.16.0
 python-dotenv==0.10.3
 pytest==5.2.1
 pytest-cov==2.8.1
-black==19.3b0
+black==22.3.0
 fairseq==0.12.2
 srsly==2.4.4
+pre-commit
