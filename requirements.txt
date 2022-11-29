@@ -2,7 +2,7 @@ fastapi==0.42.0
 requests==2.22.0
 uvicorn==0.16.0
 python-dotenv==0.10.3
-pytest==5.2.1
+pytest==7.2.0
 pytest-cov==2.8.1
 black==22.3.0
 fairseq==0.12.2
