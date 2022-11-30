@@ -22,7 +22,7 @@ To set the server up locally, we have the following steps:
 To run locally server in debug mode run:
 
 ``` bash
-pip3 install -r requirements/base.txt  --no-cache-dir
+pip3 install -r requirements.txt  --no-cache-dir
 nohup uvicorn server.main:app --reload --host 0.0.0.0 &
 ```
 Open your browser to http://localhost:8000/docs to view the API UI.
@@ -38,7 +38,7 @@ yarn install
 ### change .env.development to your ip address
 yarn dev
 
-## export 
+## export
 yarn build && yarn export
 ```
 
@@ -66,17 +66,24 @@ systemctl status caddy
 cp -r ./web/out/. /usr/share/caddy/
 ```
 
+# Black
+A Git configuration has been added that can be used to automatically run `black` (the Python code formatter) every time a commit is made:
 
+1. Make sure that you have `pre-commit` installed (it should have been installed after running `pip install -r requirements.txt`).
+2. Install the configuartion by running `pre-commit install` in the root directory of the repo. This will read the `.pre-commit-config.yaml` file.
+3. Now, every time you do a Git commit, `black` will run automatically and format any Python files.
 
-  
+A GitHub Action has also been created that will check that Python files have been formatted with `black` after every push or pull request.
 
-## TODO
+# Testing
+Tests for the command line interface `cli/convert.py` have been included in the `tests/` directory.
+To run the tests locally, run `pytest` from root directory of the repo.
+A GitHub Action has also been created that will run the tests automatically after every push or pull request.
+
+# TODO
 - [x] API
 - [x] UI
 - [x] Feature1: suggestion
 - [x] Feature2: sentence
 - [ ] Make UI prettier
 - [ ] Diffchecker
-
-
-

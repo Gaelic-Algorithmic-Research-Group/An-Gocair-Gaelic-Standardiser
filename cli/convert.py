@@ -1,5 +1,6 @@
-# load the pretrained model using command line
-# python convert.py --model bert-base-uncased --text (optional) "Hello, my dog is cute" --file (optional) "data.txt"
+# convert a sentence or a file to GOC format using the command line:
+# python convert.py --text "example sentence"
+# python convert.py --file "gaelic_file.txt"
 
 from fairseq.models.transformer import TransformerModel
 import argparse
