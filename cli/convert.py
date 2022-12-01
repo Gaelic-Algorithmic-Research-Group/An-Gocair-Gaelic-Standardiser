@@ -6,6 +6,7 @@ from fairseq.models.transformer import TransformerModel
 import argparse
 import os.path
 import sys
+import re
 
 
 def cli(args=None):
@@ -23,12 +24,16 @@ def cli(args=None):
 
 
 def convert(text, file):
-    # Load the model
+    """
+    This is the main function that converts
+    a sentence (text) or a file to GOC format.
+    """
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
     dirname = os.path.dirname(__file__)
     models_path = os.path.join(dirname, "models/")
     binary_path = os.path.join(dirname, "binary/")
+    # Load the model
     pre2goc = TransformerModel.from_pretrained(
         models_path,
         checkpoint_file="checkpoint_best.pt",  # model loc
@@ -36,14 +41,46 @@ def convert(text, file):
     )
 
     def translate(inputs):
+        """Translate input sentence using model"""
         inputs = " ".join(list(inputs.replace(" ", "_")))
         return pre2goc.translate(inputs).replace(" ", "").replace("_", " ")
 
+    def translate_line_sentence_by_sentence(line):
+        """
+        Given an input line of text, split it into sentences, where
+        the end of a sentence is identified by ".", "?" or "!".
+        Then feed each sentence into the model and translate it.
+        The translated sentences are concatenaed back into a line
+        of text and returned.
+        """
+        delimiters = ".", "?", "!"
+        # re.escape allows to build the pattern automatically
+        # and have the delimiters escaped nicely.
+        regex_pattern = "|".join(map(re.escape, delimiters))
+        # If capturing parentheses are used in pattern, then the text of all
+        # groups in the pattern are also returned as part of the resulting list.
+        regex_pattern = "(" + regex_pattern + ")"
+        split_line = re.split(regex_pattern, line)
+
+        delimiters = list(delimiters)
+        # create an iterator to access the next item of the list in the loop below
+        iterator = iter(split_line[1:])
+        translated_line = ""
+
+        for sentence in split_line:
+            element = next(iterator, "")  # next item of the list
+            if sentence and sentence not in delimiters:
+                sentence = sentence.strip() + element
+                translated_sentence = translate(sentence)
+                translated_line += translated_sentence + " "
+        return translated_line.strip()
+
     if text:
         # Check string is not empty
-        if not text.strip():
+        text = text.strip()
+        if not text:
             raise ValueError("Please enter text to translate")
-        translated_text = translate(text)
+        translated_text = translate_line_sentence_by_sentence(text)
         print(translated_text)
 
     if file:
@@ -69,14 +106,9 @@ def convert(text, file):
         ]  # empty strings in the list are False and they denote new paragraphs
         for ii in range(len(file_text)):
             # loop through every line in the text, split the lines into sentences and translate sentence by sentence.
-            # the end of a sentence is identified by a '.'
             if is_text[ii]:
                 line = file_text[ii]
-                for sentence in line.split("."):
-                    if sentence:
-                        sentence = sentence.strip() + "."
-                        translated_sentence = translate(sentence)  # Run the model
-                        translated_text += translated_sentence + " "
+                translated_text += translate_line_sentence_by_sentence(line)
                 translated_text += (
                     "\n"  # at the end of the line, insert a new line character
                 )
