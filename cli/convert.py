@@ -16,10 +16,20 @@ def cli(args=None):
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--text", type=str, help="text to translate")
     argparser.add_argument("--file", type=str, help="file to translate")
+    argparser.add_argument("--dir", type=str, help="directory to translate all files")
+
     # The parse_args() function will use an argument list if specified,
     # otherwise it will use the passed command line arguments
     args = argparser.parse_args(args)
-    convert(args.text, args.file)
+
+    # If a directory is passed, find all the files within it and translate each file.
+    # Otherwise, translate the text or file passed.
+    if args.dir:
+        for file in os.listdir(args.dir):
+            if file.endswith(".txt"):
+                convert(None, os.path.join(args.dir, file))
+    else:
+        convert(args.text, args.file)
 
 
 def convert(text, file):
