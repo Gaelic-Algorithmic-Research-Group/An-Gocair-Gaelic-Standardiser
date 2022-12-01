@@ -25,6 +25,14 @@ def cli(args=None):
     # If a directory is passed, find all the files within it and translate each file.
     # Otherwise, translate the text or file passed.
     if args.dir:
+        # Check directory exists
+        if not os.path.isdir(args.dir):
+            raise Exception("Directory does not exist")
+
+        # Check directory isn't empty
+        if not os.listdir(args.dir):
+            raise ValueError("Directory is empty")
+
         for file in os.listdir(args.dir):
             if file.endswith(".txt"):
                 convert(None, os.path.join(args.dir, file))
