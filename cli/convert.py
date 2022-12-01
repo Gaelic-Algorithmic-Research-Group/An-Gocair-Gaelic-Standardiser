@@ -33,6 +33,10 @@ def cli(args=None):
         if not os.listdir(args.dir):
             raise ValueError("Directory is empty")
 
+        # Check directory contains at least one .txt file
+        if not any(file.endswith(".txt") for file in os.listdir(args.dir)):
+            raise ValueError("Directory contains no .txt files")
+
         for file in os.listdir(args.dir):
             if file.endswith(".txt"):
                 convert(None, os.path.join(args.dir, file))
