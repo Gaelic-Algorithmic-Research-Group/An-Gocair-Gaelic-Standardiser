@@ -6,6 +6,8 @@ services:
       dockerfile: ./server.Dockerfile
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0"]  
+    ports:
+      - "6456:8000"
   web:
     build:
       dockerfile: ./web.Dockerfile

@@ -30,7 +30,7 @@ export default function Paraphraser() {
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
         if (paraphraseMode === "small" || paraphraseMode == "stable") {
-          const url = new URL(`http://localhost:8080/paraphrase`);
+          const url = new URL(`http://angocair.garg.ed.ac.uk/paraphrase`);
           url.searchParams.append("text", text);
           return fetch(url.toString()).then((res) => {
             if (res && res.ok) {
