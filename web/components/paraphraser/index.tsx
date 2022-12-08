@@ -154,14 +154,6 @@ export default function Paraphraser() {
             >
               {intl.formatMessage({id: "stablemodel"})}
             </button>
-            <button
-              className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-amber-600 focus:text-amber-600 ${
-                paraphraseMode === "latest" ? "bg-amber-50 text-amber-700" : ""
-              }`}
-              onClick={() => setParaphraseMode("latest")}
-            >
-              {intl.formatMessage({id: "developingmodel"})}
-            </button>
           </div>
           <HideShow show={paraphraseMode === "small"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
@@ -173,12 +165,6 @@ export default function Paraphraser() {
             <div className="p-2 mt-2 font-semibold text-center text-green-700 rounded-lg bg-green-50">
               Stable model is the best model for now. It is the most accurate
               model.
-            </div>
-          </HideShow>
-          <HideShow show={paraphraseMode === "latest"}>
-            <div className="p-2 mt-2 font-semibold text-center rounded-lg bg-amber-50 text-amber-700">
-              Developing model has the largest datasets. It is still trouble
-              shooting. [20221031:morning].
             </div>
           </HideShow>
           <div className="p-4 sm:px-0">
