@@ -14,7 +14,8 @@ services:
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0", "--port", "8001"] 
     volumes:
-      - models/best/:/app/server/models
+      - ./models/best/checkpoint_best.pt:/app/server/models/checkpoint_best.pt
+      - ./models/best/bin:/app/server/binary
     ports:
       - "6457:8001"
   web:
