@@ -60,6 +60,43 @@ def load_model():
     return pre2goc
 
 
+def translate(inputs, pre2goc):
+    """Translate input sentence using model"""
+    inputs = " ".join(list(inputs.replace(" ", "_")))
+    return pre2goc.translate(inputs).replace(" ", "").replace("_", " ")
+
+
+def translate_line_sentence_by_sentence(line, pre2goc):
+    """
+    Given an input line of text, split it into sentences, where
+    the end of a sentence is identified by ".", "?" or "!".
+    Then feed each sentence into the model and translate it.
+    The translated sentences are concatenaed back into a line
+    of text and returned.
+    """
+    delimiters = ".", "?", "!"
+    # re.escape allows to build the pattern automatically
+    # and have the delimiters escaped nicely.
+    regex_pattern = "|".join(map(re.escape, delimiters))
+    # If capturing parentheses are used in pattern, then the text of all
+    # groups in the pattern are also returned as part of the resulting list.
+    regex_pattern = "(" + regex_pattern + ")"
+    split_line = re.split(regex_pattern, line)
+
+    delimiters = list(delimiters)
+    # create an iterator to access the next item of the list in the loop below
+    iterator = iter(split_line[1:])
+    translated_line = ""
+
+    for sentence in split_line:
+        element = next(iterator, "")  # next item of the list
+        if sentence and sentence not in delimiters:
+            sentence = sentence.strip() + element
+            translated_sentence = translate(sentence, pre2goc)
+            translated_line += translated_sentence + " "
+    return translated_line.strip()
+
+
 def convert(text, file):
     """
     This is the main function that converts
@@ -68,47 +105,12 @@ def convert(text, file):
 
     pre2goc = load_model()
 
-    def translate(inputs):
-        """Translate input sentence using model"""
-        inputs = " ".join(list(inputs.replace(" ", "_")))
-        return pre2goc.translate(inputs).replace(" ", "").replace("_", " ")
-
-    def translate_line_sentence_by_sentence(line):
-        """
-        Given an input line of text, split it into sentences, where
-        the end of a sentence is identified by ".", "?" or "!".
-        Then feed each sentence into the model and translate it.
-        The translated sentences are concatenaed back into a line
-        of text and returned.
-        """
-        delimiters = ".", "?", "!"
-        # re.escape allows to build the pattern automatically
-        # and have the delimiters escaped nicely.
-        regex_pattern = "|".join(map(re.escape, delimiters))
-        # If capturing parentheses are used in pattern, then the text of all
-        # groups in the pattern are also returned as part of the resulting list.
-        regex_pattern = "(" + regex_pattern + ")"
-        split_line = re.split(regex_pattern, line)
-
-        delimiters = list(delimiters)
-        # create an iterator to access the next item of the list in the loop below
-        iterator = iter(split_line[1:])
-        translated_line = ""
-
-        for sentence in split_line:
-            element = next(iterator, "")  # next item of the list
-            if sentence and sentence not in delimiters:
-                sentence = sentence.strip() + element
-                translated_sentence = translate(sentence)
-                translated_line += translated_sentence + " "
-        return translated_line.strip()
-
     if text:
         # Check string is not empty
         text = text.strip()
         if not text:
             raise ValueError("Please enter text to translate")
-        translated_text = translate_line_sentence_by_sentence(text)
+        translated_text = translate_line_sentence_by_sentence(text, pre2goc)
         print(translated_text)
 
     if file:
@@ -136,7 +138,7 @@ def convert(text, file):
             # loop through every line in the text, split the lines into sentences and translate sentence by sentence.
             if is_text[ii]:
                 line = file_text[ii]
-                translated_text += translate_line_sentence_by_sentence(line)
+                translated_text += translate_line_sentence_by_sentence(line, pre2goc)
                 translated_text += (
                     "\n"  # at the end of the line, insert a new line character
                 )
