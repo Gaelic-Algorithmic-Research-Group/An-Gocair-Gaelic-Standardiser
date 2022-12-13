@@ -46,6 +46,7 @@ def cli(args=None):
 
 
 def load_model():
+    """Load the pretrained tranformer model"""
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
     dirname = os.path.dirname(__file__)
@@ -78,23 +79,26 @@ def split_line_by_sentence(line):
     # If capturing parentheses are used in pattern, then the text of all
     # groups in the pattern are also returned as part of the resulting list.
     regex_pattern = "(" + regex_pattern + ")"
-    split_line = re.split(regex_pattern, line)
+    split_line = re.split(
+        regex_pattern, line
+    )  # returns a list where each element is a different sentence
     delimiters = list(delimiters)
     return split_line, delimiters
 
 
 def translate_line_sentence_by_sentence(line, pre2goc):
     """
-    Then feed each sentence into the model and translate it.
-    The translated sentences are concatenaed back into a line
-    of text and returned.
+    Given an input line of text, feed each sentence in the line
+    into the model and translate it. The translated sentences are
+    concatenaed back into a line and returned.
     """
     # split_line is a list where each element is a different sentence
     split_line, delimiters = split_line_by_sentence(line)
     # create an iterator to access the next item of the list in the loop below
     iterator = iter(split_line[1:])
     translated_line = ""
-
+    # loop through the sentences that the line is composed of,
+    # and translate one by one
     for sentence in split_line:
         element = next(iterator, "")  # next item of the list
         if sentence and sentence not in delimiters:
