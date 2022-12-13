@@ -45,11 +45,7 @@ def cli(args=None):
         convert(args.text, args.file)
 
 
-def convert(text, file):
-    """
-    This is the main function that converts
-    a sentence (text) or a file to GOC format.
-    """
+def load_model():
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
     dirname = os.path.dirname(__file__)
@@ -61,6 +57,16 @@ def convert(text, file):
         checkpoint_file="checkpoint_best.pt",  # model loc
         data_name_or_path=binary_path,  # binary data path
     )
+    return pre2goc
+
+
+def convert(text, file):
+    """
+    This is the main function that converts
+    a sentence (text) or a file to GOC format.
+    """
+
+    pre2goc = load_model()
 
     def translate(inputs):
         """Translate input sentence using model"""
