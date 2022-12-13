@@ -57,3 +57,4 @@ bower_components
 
 # translated text files
 pred.*
+!cli/pred.gaelic_file.txt
