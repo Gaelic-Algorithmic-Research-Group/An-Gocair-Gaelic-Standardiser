@@ -66,13 +66,10 @@ def translate(inputs, pre2goc):
     return pre2goc.translate(inputs).replace(" ", "").replace("_", " ")
 
 
-def translate_line_sentence_by_sentence(line, pre2goc):
+def split_line_by_sentence(line):
     """
     Given an input line of text, split it into sentences, where
     the end of a sentence is identified by ".", "?" or "!".
-    Then feed each sentence into the model and translate it.
-    The translated sentences are concatenaed back into a line
-    of text and returned.
     """
     delimiters = ".", "?", "!"
     # re.escape allows to build the pattern automatically
@@ -82,8 +79,18 @@ def translate_line_sentence_by_sentence(line, pre2goc):
     # groups in the pattern are also returned as part of the resulting list.
     regex_pattern = "(" + regex_pattern + ")"
     split_line = re.split(regex_pattern, line)
-
     delimiters = list(delimiters)
+    return split_line, delimiters
+
+
+def translate_line_sentence_by_sentence(line, pre2goc):
+    """
+    Then feed each sentence into the model and translate it.
+    The translated sentences are concatenaed back into a line
+    of text and returned.
+    """
+    # split_line is a list where each element is a different sentence
+    split_line, delimiters = split_line_by_sentence(line)
     # create an iterator to access the next item of the list in the loop below
     iterator = iter(split_line[1:])
     translated_line = ""
