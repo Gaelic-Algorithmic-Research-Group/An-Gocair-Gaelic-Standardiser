@@ -2,6 +2,7 @@ from cli.convert import cli
 import subprocess
 from pytest import raises
 import os.path
+import filecmp
 
 dirname = os.path.dirname(__file__)
 
@@ -64,7 +65,22 @@ def test_convert_fails_on_whitespace_file():
         cli(["--file", file_name])
 
 
-def test_directory():
+def test_convert_returns_expected_file():
+    """
+    This test checks that convert.py outputs the
+    expected file when a specific file is input.
+    """
+    file_path = os.path.join(dirname, "testFiles/gaelic_file.txt")
+    cli(["--file", file_path])
+    file_path_out = os.path.join(dirname, "testFiles/pred.gaelic_file.txt")
+    file_path_expected = os.path.join(
+        dirname, "testFiles/pred.gaelic_file.expected.txt"
+    )
+    # this just checks if the two files are the same
+    assert filecmp.cmp(file_path_out, file_path_expected)
+
+
+def test_convert_directory():
     """
     This test checks that convert.py succeeds
     when a valid directory is passed.
