@@ -35,7 +35,7 @@ def test_convert_works_on_valid_file():
     a non-empty file when a valid file is passed.
     """
     file_path = os.path.join(dirname, "testFiles/gaelic_file.txt")
-    cli(["--file", file_path])
+    cli(["--path", file_path])
     file_path = os.path.join(dirname, "testFiles/pred.gaelic_file.txt")
     with open(file_path, "r") as f:
         file_text = f.readlines()
@@ -51,7 +51,7 @@ def test_convert_fails_on_empty_file():
     """
     file_name = os.path.join(dirname, "testFiles/empty_file.txt")
     with raises(ValueError):
-        cli(["--file", file_name])
+        cli(["--path", file_name])
 
 
 def test_convert_fails_on_whitespace_file():
@@ -62,7 +62,7 @@ def test_convert_fails_on_whitespace_file():
     """
     file_name = os.path.join(dirname, "testFiles/whitespace_file.txt")
     with raises(ValueError):
-        cli(["--file", file_name])
+        cli(["--path", file_name])
 
 
 def test_convert_returns_expected_file():
@@ -71,7 +71,7 @@ def test_convert_returns_expected_file():
     expected file when a specific file is input.
     """
     file_path = os.path.join(dirname, "testFiles/gaelic_file.txt")
-    cli(["--file", file_path])
+    cli(["--path", file_path])
     file_path_out = os.path.join(dirname, "testFiles/pred.gaelic_file.txt")
     file_path_expected = os.path.join(
         dirname, "testFiles/pred.gaelic_file.expected.txt"
@@ -95,7 +95,7 @@ def test_convert_directory():
 
     # Count the number of files
     n_input_files = len(os.listdir(os.path.join(dirname, "testFiles/testDir")))
-    cli(["--dir", dir_path])
+    cli(["--path", dir_path])
 
     # Check that the right number of output files are created
     output_files = os.listdir(os.path.join(dirname, "testFiles/testDir/"))
@@ -113,4 +113,4 @@ def test_convert_fails_on_empty_directory():
     """
     dir_path = os.path.join(dirname, "testFiles/emptyDir")
     with raises(ValueError):
-        cli(["--dir", dir_path])
+        cli(["--path", dir_path])
