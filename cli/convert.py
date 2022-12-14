@@ -67,6 +67,31 @@ def translate(inputs, pre2goc):
     return pre2goc.translate(inputs).replace(" ", "").replace("_", " ")
 
 
+def split_file_by_line(file):
+    """
+    Given an input file path, split it into lines.
+    Return a list where each element in the list is
+    a different line of the file.
+    """
+    if os.path.isfile(file):
+        with open(file, "r") as f:
+            lines_in_file = f.readlines()  # returns every line in the file in a list
+    else:
+        raise Exception("File does not exist")
+
+    # check file is not empty, ignoring leading blank lines and spaces
+    text_test = " ".join(lines_in_file)
+    text_test = text_test.strip()
+    if not text_test:
+        raise ValueError("File is empty")
+
+    lines_in_file = [
+        line.strip() for line in lines_in_file
+    ]  # note that strip removes newline characters
+
+    return lines_in_file
+
+
 def split_line_by_sentence(line):
     """
     Given an input line of text, split it into sentences, where
@@ -108,6 +133,28 @@ def translate_line_sentence_by_sentence(line, pre2goc):
     return translated_line.strip()
 
 
+def write_translated_text_to_file(translated_text, input_file_name):
+    """
+    Write the translated file to disk. The translated file
+    is named as the input file preceeded by "pred."
+    """
+    with open(
+        os.path.join(
+            os.path.dirname(input_file_name),
+            "pred." + os.path.basename(input_file_name),
+        ),
+        "w",
+    ) as f:
+        f.write(translated_text)
+
+
+# file -> list_of_lines -> list_of_sentences -> check_sentence_has_text -> translate(sentence) -> translated_line -> concatenate translated_file -> write translated_file.txt
+
+# split_file_by_line -> split_line_by_sentence -> translate_line_sentence_by_sentence ->
+#
+# write translated_file.txt
+
+
 def convert(text, file):
     """
     This is the main function that converts
@@ -125,42 +172,25 @@ def convert(text, file):
         print(translated_text)
 
     if file:
-        if os.path.isfile(file):
-            with open(file, "r") as f:
-                file_text = f.readlines()  # returns every line in the file in a list
-        else:
-            raise Exception("File does not exist")
-
-        # check file is not empty, ignoring leading blank lines and spaces
-        text_test = " ".join(file_text)
-        text_test = text_test.strip()
-        if not text_test:
-            raise ValueError("File is empty")
-
-        # process the text sentence by sentence, respecting newline characters
+        lines_in_file = split_file_by_line(
+            file
+        )  # returns a list where each element is a line of the file
         translated_text = ""  # initialize the translated text string
-        file_text = [
-            line.strip() for line in file_text
-        ]  # note that strip removes newline characters
-        is_text = [
-            bool(line) for line in file_text
-        ]  # empty strings in the list are False and they denote new paragraphs
-        for ii in range(len(file_text)):
-            # loop through every line in the text, split the lines into sentences and translate sentence by sentence.
-            if is_text[ii]:
-                line = file_text[ii]
+        # loop through every line in the file, and translate the line
+        # sentence by sentence. Concatenate the translated line into
+        # the translated text string.
+        for line in lines_in_file:
+            line_has_text = bool(
+                line
+            )  # empty strings in the list are False and they denote new paragraphs
+            if line_has_text:
                 translated_text += translate_line_sentence_by_sentence(line, pre2goc)
                 translated_text += (
                     "\n"  # at the end of the line, insert a new line character
                 )
             else:
                 translated_text += "\n"  # start new paragraph
-        # write the translated text to disk
-        # TODO This is a bit of a mess
-        with open(
-            os.path.join(os.path.dirname(file), "pred." + os.path.basename(file)), "w"
-        ) as f:
-            f.write(translated_text)
+        write_translated_text_to_file(translated_text, input_file_name=file)
 
     if not text and not file:
         raise Exception("Please specify either the text or the file to translate")
