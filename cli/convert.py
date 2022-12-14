@@ -4,7 +4,7 @@
 
 from fairseq.models.transformer import TransformerModel
 import argparse
-import os.path
+import os
 import sys
 import re
 
@@ -16,33 +16,14 @@ def cli(args=None):
         args = sys.argv[1:]
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--text", type=str, help="text to translate")
-    argparser.add_argument("--file", type=str, help="file to translate")
-    argparser.add_argument("--dir", type=str, help="directory to translate all files")
+    argparser.add_argument(
+        "--path", type=str, help="path of file or folder to translate"
+    )
 
     # The parse_args() function will use an argument list if specified,
     # otherwise it will use the passed command line arguments
     args = argparser.parse_args(args)
-
-    # If a directory is passed, find all the files within it and translate each file.
-    # Otherwise, translate the text or file passed.
-    if args.dir:
-        # Check directory exists
-        if not os.path.isdir(args.dir):
-            raise Exception("Directory does not exist")
-
-        # Check directory isn't empty
-        if not os.listdir(args.dir):
-            raise ValueError("Directory is empty")
-
-        # Check directory contains at least one .txt file
-        if not any(file.endswith(".txt") for file in os.listdir(args.dir)):
-            raise ValueError("Directory contains no .txt files")
-
-        for file in os.listdir(args.dir):
-            if file.endswith(".txt"):
-                convert(None, os.path.join(args.dir, file))
-    else:
-        convert(args.text, args.file)
+    convert(args.text, args.path)
 
 
 def load_model():
@@ -133,32 +114,34 @@ def translate_line_sentence_by_sentence(line, pre2goc):
     return translated_line.strip()
 
 
-def write_translated_text_to_file(translated_text, input_file_name):
+def write_translated_text_to_file(translated_text, input_file):
     """
     Write the translated file to disk. The translated file
     is named as the input file preceeded by "pred."
     """
     with open(
         os.path.join(
-            os.path.dirname(input_file_name),
-            "pred." + os.path.basename(input_file_name),
+            os.path.dirname(input_file),
+            "pred." + os.path.basename(input_file),
         ),
         "w",
     ) as f:
         f.write(translated_text)
 
 
-# file -> list_of_lines -> list_of_sentences -> check_sentence_has_text -> translate(sentence) -> translated_line -> concatenate translated_file -> write translated_file.txt
+def get_txt_files(list_of_files):
+    txt_files = [file for file in list_of_files if ".txt" in file]
+    if any(txt_files):
+        return txt_files
+    else:
+        raise ValueError("The specified path does not contain .txt files")
 
-# split_file_by_line -> split_line_by_sentence -> translate_line_sentence_by_sentence ->
-#
-# write translated_file.txt
 
-
-def convert(text, file):
+def convert(text, path):
     """
     This is the main function that converts
-    a sentence (text) or a file to GOC format.
+    a sentence (text), a single text file, or a folder
+    containing text files, to GOC format.
     """
 
     pre2goc = load_model()
@@ -171,29 +154,53 @@ def convert(text, file):
         translated_text = translate_line_sentence_by_sentence(text, pre2goc)
         print(translated_text)
 
-    if file:
-        lines_in_file = split_file_by_line(
-            file
-        )  # returns a list where each element is a line of the file
-        translated_text = ""  # initialize the translated text string
-        # loop through every line in the file, and translate the line
-        # sentence by sentence. Concatenate the translated line into
-        # the translated text string.
-        for line in lines_in_file:
-            line_has_text = bool(
-                line
-            )  # empty strings in the list are False and they denote new paragraphs
-            if line_has_text:
-                translated_text += translate_line_sentence_by_sentence(line, pre2goc)
-                translated_text += (
-                    "\n"  # at the end of the line, insert a new line character
-                )
-            else:
-                translated_text += "\n"  # start new paragraph
-        write_translated_text_to_file(translated_text, input_file_name=file)
+    if path:
+        if os.path.isfile(path):
+            list_of_files = [path]
+            txt_files = get_txt_files(
+                list_of_files
+            )  # if the path corresponds to a valid .txt file, returns a list with a single file name
+        elif os.path.isdir(path):
+            list_of_files = os.listdir(
+                path
+            )  # returns a list of files contained in the folder
+            txt_files = get_txt_files(
+                list_of_files
+            )  # get the .txt files from this list
+            txt_files = [
+                os.path.join(path, file) for file in txt_files
+            ]  # append the folder path to the file name
+        else:
+            raise Exception("The specified path is not valid")
 
-    if not text and not file:
-        raise Exception("Please specify either the text or the file to translate")
+        # loop through every .txt file
+        for file in txt_files:
+            lines_in_file = split_file_by_line(
+                file
+            )  # returns a list where each element is a line of the file
+            translated_text = ""  # initialize the translated text string
+            # loop through every line in the file, and translate the line
+            # sentence by sentence. Concatenate the translated line into
+            # the translated text string.
+            for line in lines_in_file:
+                line_has_text = bool(
+                    line
+                )  # empty strings in the list are False and they denote new paragraphs
+                if line_has_text:
+                    translated_text += translate_line_sentence_by_sentence(
+                        line, pre2goc
+                    )
+                    translated_text += (
+                        "\n"  # at the end of the line, insert a new line character
+                    )
+                else:
+                    translated_text += "\n"  # start new paragraph
+            write_translated_text_to_file(translated_text, input_file=file)
+
+    if not text and not path:
+        raise Exception(
+            "Please specify either the text or the path of a file or folder to translate"
+        )
 
 
 if __name__ == "__main__":
