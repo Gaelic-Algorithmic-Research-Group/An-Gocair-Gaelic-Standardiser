@@ -1,4 +1,5 @@
 from cli.convert import cli
+from cli.convert import split_line_by_sentence
 import subprocess
 from pytest import raises
 import os.path
@@ -114,3 +115,19 @@ def test_convert_fails_on_empty_directory():
     dir_path = os.path.join(dirname, "testFiles/emptyDir")
     with raises(ValueError):
         cli(["--path", dir_path])
+
+
+def test_split_line_by_sentence():
+    """
+    Test the "split_line_by_sentence" function in the
+    cli.convert module
+    """
+    test_line = "This is a test. Really? Yes! Well, let's hope it works."
+    expected_split = [
+        "This is a test.",
+        "Really?",
+        "Yes!",
+        "Well, let's hope it works.",
+    ]  # this is the split that we would expect
+    actual_split = split_line_by_sentence(test_line)
+    assert expected_split == actual_split
