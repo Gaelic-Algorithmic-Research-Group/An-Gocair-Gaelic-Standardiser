@@ -15,19 +15,29 @@ def cli(args=None):
     if not args:
         args = sys.argv[1:]
     argparser = argparse.ArgumentParser()
-    argparser.add_argument("--text", type=str, help="text to translate")
+    argparser.add_argument("--text", type=str, help="Text to translate")
     argparser.add_argument(
-        "--path", type=str, help="path of file or folder to translate"
+        "--path", type=str, help="Path of file or folder to translate"
+    )
+    argparser.add_argument(
+        "--model",
+        type=str,
+        default="checkpoint_best.pt",
+        help="Model file to use for the spelling correction. The default is checkpoint_best.pt",
     )
 
     # The parse_args() function will use an argument list if specified,
     # otherwise it will use the passed command line arguments
     args = argparser.parse_args(args)
-    convert(args.text, args.path)
+    convert(args.text, args.path, args.model)
 
 
-def load_model():
-    """Load the pretrained tranformer model"""
+def load_model(model):
+    """
+    Load the pretrained tranformer model, specified
+    by the flag --model. The model file must be
+    contained in the models/ subfolder.
+    """
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
     dirname = os.path.dirname(__file__)
@@ -36,7 +46,7 @@ def load_model():
     # Load the model
     pre2goc = TransformerModel.from_pretrained(
         models_path,
-        checkpoint_file="checkpoint_best.pt",  # model loc
+        checkpoint_file=model,  # model loc
         data_name_or_path=binary_path,  # binary data path
     )
     return pre2goc
@@ -147,14 +157,14 @@ def get_txt_files(list_of_files):
         raise ValueError("The specified path does not contain .txt files")
 
 
-def convert(text, path):
+def convert(text, path, model):
     """
     This is the main function that converts
     a sentence (text), a single text file, or a folder
     containing text files, to GOC format.
     """
 
-    pre2goc = load_model()
+    pre2goc = load_model(model)
 
     if text:
         # Check string is not empty
