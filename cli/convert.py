@@ -77,6 +77,8 @@ def split_line_by_sentence(line):
     """
     Given an input line of text, split it into sentences, where
     the end of a sentence is identified by ".", "?" or "!".
+    The line split is returned as a list, where each element
+    of the list is a different sentence.
     """
     delimiters = ".", "?", "!"
     # re.escape allows to build the pattern automatically
@@ -85,11 +87,22 @@ def split_line_by_sentence(line):
     # If capturing parentheses are used in pattern, then the text of all
     # groups in the pattern are also returned as part of the resulting list.
     regex_pattern = "(" + regex_pattern + ")"
-    split_line = re.split(
-        regex_pattern, line
-    )  # returns a list where each element is a different sentence
+    # the following returns a list where the line is split into sentences
+    # followed by the corresponding punctuation mark
+    split_line = re.split(regex_pattern, line)
+    # now join the sentences with their corresponding punctuation marks
     delimiters = list(delimiters)
-    return split_line, delimiters
+    sentences_in_line = []  # initialize the list that will contain our final sentences
+    iterator = iter(
+        split_line[1:]
+    )  # create an iterator to access the next item of the list in the loop below
+    for sentence in split_line:
+        punctuation_mark = next(iterator, "")  # next item of the list
+        is_sentence = bool(sentence)
+        if is_sentence and sentence not in delimiters:
+            sentence = sentence.strip() + punctuation_mark
+            sentences_in_line.append(sentence)
+    return sentences_in_line
 
 
 def translate_line_sentence_by_sentence(line, pre2goc):
@@ -98,19 +111,16 @@ def translate_line_sentence_by_sentence(line, pre2goc):
     into the model and translate it. The translated sentences are
     concatenaed back into a line and returned.
     """
-    # split_line is a list where each element is a different sentence
-    split_line, delimiters = split_line_by_sentence(line)
-    # create an iterator to access the next item of the list in the loop below
-    iterator = iter(split_line[1:])
+    # sentences_in_line is a list where each element is a different sentence
+    sentences_in_line = split_line_by_sentence(line)
     translated_line = ""
     # loop through the sentences that the line is composed of,
     # and translate one by one
-    for sentence in split_line:
-        element = next(iterator, "")  # next item of the list
-        if sentence and sentence not in delimiters:
-            sentence = sentence.strip() + element
-            translated_sentence = translate(sentence, pre2goc)
-            translated_line += translated_sentence + " "
+    for sentence in sentences_in_line:
+        translated_sentence = translate(sentence, pre2goc)
+        translated_line += (
+            translated_sentence + " "
+        )  # need to add a white space after each sentence
     return translated_line.strip()
 
 
