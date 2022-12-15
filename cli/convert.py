@@ -19,6 +19,11 @@ import argparse
 import os
 import sys
 import re
+import logging
+
+# set logging level of fairseq library to ERROR in order to suppress
+# INFO logs to standard output
+logging.getLogger("fairseq").setLevel(logging.ERROR)
 
 
 def cli(args=None):
@@ -50,8 +55,6 @@ def load_model(model):
     by the flag --model. The model file must be
     contained in cli/models.
     """
-    # TODO this outputs a bunch of model info to the screen - can we avoid it?
-    # TODO include flag in argparse for model
     dirname = os.path.dirname(__file__)
     models_path = os.path.join(dirname, "models/")
     binary_path = os.path.join(dirname, "binary/")
