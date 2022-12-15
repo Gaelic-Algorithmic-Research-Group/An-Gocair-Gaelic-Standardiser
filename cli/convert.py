@@ -14,7 +14,6 @@ The model file must be contained in cli/models.
 The default model file is checkpoint_best.pt
 """
 
-from fairseq.models.transformer import TransformerModel
 import argparse
 import os
 import sys
@@ -24,6 +23,7 @@ import logging
 # set logging level of fairseq library to ERROR in order to suppress
 # INFO logs to standard output
 logging.getLogger("fairseq").setLevel(logging.ERROR)
+from fairseq.models.transformer import TransformerModel
 
 
 def cli(args=None):
