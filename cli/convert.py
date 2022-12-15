@@ -1,6 +1,18 @@
-# convert a sentence or a file to GOC format using the command line:
-# python convert.py --text "example sentence"
-# python convert.py --file "gaelic_file.txt"
+"""
+Convert a line of text, a single .txt file, or all the .txt files in a folder,
+to GOC format using the command line:
+
+python convert.py --text "example sentence"
+python convert.py --path gaelic_file.txt
+python convert.py --path testDir
+
+To specify the transformer model to employ, use the --model flag:
+
+python convert.py --path gaelic_file.txt --model checkpoint_best.pt
+
+The model file must be contained in cli/models.
+The default model file is checkpoint_best.pt
+"""
 
 from fairseq.models.transformer import TransformerModel
 import argparse
@@ -36,7 +48,7 @@ def load_model(model):
     """
     Load the pretrained tranformer model, specified
     by the flag --model. The model file must be
-    contained in the models/ subfolder.
+    contained in cli/models.
     """
     # TODO this outputs a bunch of model info to the screen - can we avoid it?
     # TODO include flag in argparse for model
@@ -150,6 +162,7 @@ def write_translated_text_to_file(translated_text, input_file):
 
 
 def get_txt_files(list_of_files):
+    """Find the .txt files in a list of file names"""
     txt_files = [file for file in list_of_files if ".txt" in file]
     if any(txt_files):
         return txt_files
