@@ -29,40 +29,24 @@ export default function Paraphraser() {
     const loadingToast = toast.loading("Ag obair air...");
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
-        if (paraphraseMode === "small" || paraphraseMode == "stable") {
-          const url = new URL(`http://localhost:8000/paraphrase`);
-          url.searchParams.append("text", text);
-          return fetch(url.toString()).then((res) => {
-            if (res && res.ok) {
-              return res.json().then((content) => {
-                if (content.text[0] === "\n") {
-                  return content.text as string[];
-                } else {
-                  return content.data as string[];
-                }
-              });
-            }
-            return Promise.reject();
-          });
-        } else {
-          const url = new URL(`https://7b20-192-41-105-190.ngrok.io/paraphrase`);
-          url.searchParams.append("text", text);
-          return fetch(url.toString(), {
-            method: "get",
-            headers: new Headers({ "ngrok-skip-browser-warning": "69420" }),
-          }).then((res) => {
-            if (res && res.ok) {
-              return res.json().then((content) => {
-                if (content.text[0] === "\n") {
-                  return content.text as string[];
-                } else {
-                  return content.data as string[];
-                }
-              });
-            }
-            return Promise.reject();
-          });
+        const models = {
+          "small": new URL(`http://angocair.garg.ed.ac.uk/fast/paraphrase`),
+          "stable": new URL(`http://angocair.garg.ed.ac.uk/best/paraphrase`)
         }
+        const url = models[paraphraseMode];
+        url.searchParams.append("text", text);
+        return fetch(url.toString()).then((res) => {
+          if (res && res.ok) {
+            return res.json().then((content) => {
+              if (content.text[0] === "\n") {
+                return content.text as string[];
+              } else {
+                return content.data as string[];
+              }
+            });
+          }
+          return Promise.reject();
+        });
       })
     )
       .then(

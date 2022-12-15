@@ -1,11 +1,22 @@
 version: "3"
 
 services:
-  api:
+  fast:
     build:
       dockerfile: ./server.Dockerfile
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0"]  
+    ports:
+      - "6456:8000"
+  best:
+    build:
+      dockerfile: ./server.Dockerfile
+    restart: always
+    entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0", "--port", "8001"] 
+    volumes:
+      - models/best/:/app/server/models
+    ports:
+      - "6457:8001"
   web:
     build:
       dockerfile: ./web.Dockerfile
@@ -14,4 +25,5 @@ services:
     ports:
       - "6455:3000"
     depends_on:
-      - api
+      - fast
+      - best
