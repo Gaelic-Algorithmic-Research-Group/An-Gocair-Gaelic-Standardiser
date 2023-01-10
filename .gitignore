@@ -54,3 +54,9 @@ output/
 myflaskapp/
 bower_components
 .DS_Store
+
+# translated text files
+pred.*
+!cli/pred.gaelic_file.txt
+!tests/testFiles/pred.gaelic_file.expected.txt
+!cli/testDir/pred*
