@@ -25,12 +25,7 @@ async def sentence_spiltter(
     id = hashlib.sha256(text.encode()).hexdigest()
     sentences = []
 
-    return {
-        "data": {
-            "id": id,
-            "sentences": sentences,
-        }
-    }
+    return {"id": id, "sentences": sentences}
 
 
 @api_router.get("/paraphrase", response_model=ParaphraseResponse)
