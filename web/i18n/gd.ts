@@ -14,5 +14,8 @@ export default {
   clearsuccess: "Chaidh an t-susbaint fhalamhachadh.",
   copysuccess: "Chaidh lethbhreac dhen toradh a chur air an stòr-bhòrd.",
   errormessage: "Dh’èirich duilgheadas ris nach robh dùil. Nach fheuch thu ris a-rithist an ceann greis",
-  feedback: "Cuir fios thugainn airson crìoch litrichean nas àirde."
+  feedback: "Cuir fios thugainn airson crìoch litrichean nas àirde.",
+  home: "Dachaidh",
+  transcriber: "Tar-Sgrìobhadair",
+  analyser: "Mion-sgrùdaiche"
 } as const;

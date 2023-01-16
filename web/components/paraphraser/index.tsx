@@ -127,16 +127,21 @@ export default function Paraphraser() {
           className: "bg-gray-50 shadow-sm font-medium",
         }}
       />
-      <header className="bg-white">
+      <header>
         <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold leading-tight text-center text-gray-900">
+          <h1 className="text-5xl font-bold leading-tight text-center">
             {intl.formatMessage({id: "headtitle"})}
           </h1>
         </div>
       </header>
+      <nav>
+        <a href="https://garg.ed.ac.uk">{intl.formatMessage({id: "home"})}</a>
+        <a href="https://sgriobhadair.garg.ed.ac.uk">{intl.formatMessage({id: "transcriber"})}</a>
+        <a href="https://sgrudaire.garg.ed.ac.uk">{intl.formatMessage({id: "analyser"})}</a>
+      </nav>
       <main>
         <SosialShare />
-        <section className="py-4 mx-auto border border-gray-100 rounded-lg shadow-sm max-w-7xl sm:px-6 lg:px-4">
+        <section className="py-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
           <div className="flex items-center justify-center">
             <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-blue-600 focus:text-blue-600 ${

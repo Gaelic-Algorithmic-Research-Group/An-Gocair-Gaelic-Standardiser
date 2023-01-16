@@ -23,7 +23,7 @@ export default class ParaphraserDocument extends Document {
           <meta name="emotion-insertion-point" content="" />
           {(this.props as any).emotionStyleTags}
         </Head>
-        <body>
+        <body className="min-vh-100">
           <Main />
           <NextScript />
         </body>

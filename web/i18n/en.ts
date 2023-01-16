@@ -14,5 +14,8 @@ export default {
   clearsuccess: "Successfully cleared content.",
   copysuccess: "Successfully copied to clipboard.",
   errormessage: "Something went wrong. Please try again later.",
-  feedback: "Contact us to increase your character limit."
+  feedback: "Contact us to increase your character limit.",
+  home: "Home",
+  transcriber: "Transcriber",
+  analyser: "Linguistic Analyser"
 } as const;

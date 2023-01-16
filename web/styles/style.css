@@ -1,5 +1,10 @@
 /* Content */
 
+html {
+  padding: 0;
+  margin: 0;
+}
+
 .content {
   padding: 8px 90px;
   font-family: "Roboto", sans-serif;
@@ -11,6 +16,55 @@
 
 .content img {
   max-height: 500px;
+}
+
+h1 {
+  color: white;
+}
+
+footer {
+  background-color: #222222;
+  flex: 33 0 auto;
+  padding: 2.5rem;
+}
+
+#main_container > main {
+  flex: 100 0 auto
+}
+
+#main_container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.language_selector {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 1em;
+  padding: 0.5em;
+}
+
+header {
+ background-color: #004f71;
+}
+
+main > nav {
+  background-color: #346dbf;
+  padding: 0.8em;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+main > nav * {
+  padding: 0 2em;
+}
+
+main > nav > a:hover {
+  text-decoration: underline;
 }
 
 /* Share Buttons */
