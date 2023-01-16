@@ -4,9 +4,9 @@ ENV APP_MODULE app.api:app
 ENV LOG_LEVEL debug
 ENV WEB_CONCURRENCY 2
 
-COPY . /app/server
+COPY server /app/server
 WORKDIR /app
-COPY ../requirements/base.txt ./requirements/base.txt
+COPY requirements/base.txt ./requirements/base.txt
 RUN pip install -r requirements/base.txt
 
 

@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-  model_1:
+  model1:
     build:
-      dockerfile: ../server.Dockerfile
-      context: server
+      dockerfile: ./server.Dockerfile
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0"]
     volumes:
@@ -12,10 +11,9 @@ services:
       - ../models/model_1/bin:/app/server/binary
     ports:
       - "6456:8000"
-  model_2":
+  model2:
     build:
-      dockerfile: ../server.Dockerfile
-      context: server
+      dockerfile: ./server.Dockerfile
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0", "--port", "8001"] 
     volumes:
@@ -32,5 +30,5 @@ services:
     ports:
       - "6455:3000"
     depends_on:
-      - fast
-      - best
+      - model1
+      - model2
