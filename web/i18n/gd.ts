@@ -1,7 +1,9 @@
 export default {
   headtitle: "An Gocair",
-  smallmodel: "Am modail luath",
-  stablemodel: "Am modail as fheàrr",
+  model1: "Modail 1",
+  model1_desc: "The current best model (Development)",
+  model2: "Modail 2",
+  model2_desc: "The previous best model (Stable)",
   developingmodel: "Am modail fo obair",
   inputHeader: "Cuir a-steach na tha thu ag iarraidh ann an litreachadh GOC",
   outputHeader: "An teacsa ann an GOC",

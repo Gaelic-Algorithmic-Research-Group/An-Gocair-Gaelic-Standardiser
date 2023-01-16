@@ -30,7 +30,7 @@ export default function Paraphraser() {
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
         const models = {
-          "small": new URL(`http://angocair.garg.ed.ac.uk/fast/paraphrase`),
+          "dev": new URL(`http://angocair.garg.ed.ac.uk/fast/paraphrase`),
           "stable": new URL(`http://angocair.garg.ed.ac.uk/best/paraphrase`)
         }
         const url = models[paraphraseMode];
@@ -145,11 +145,11 @@ export default function Paraphraser() {
           <div className="flex items-center justify-center">
             <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-blue-600 focus:text-blue-600 ${
-                paraphraseMode === "small" ? "bg-blue-50 text-blue-700" : ""
+                paraphraseMode === "dev" ? "bg-blue-50 text-blue-700" : ""
               }`}
-              onClick={() => setParaphraseMode("small")}
+              onClick={() => setParaphraseMode("dev")}
             >
-              {intl.formatMessage({id: "smallmodel"})}
+              {intl.formatMessage({id: "model1"})}
             </button>
             <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-green-600 focus:text-green-600 ${
@@ -157,19 +157,17 @@ export default function Paraphraser() {
               }`}
               onClick={() => setParaphraseMode("stable")}
             >
-              {intl.formatMessage({id: "stablemodel"})}
+              {intl.formatMessage({id: "model2"})}
             </button>
           </div>
-          <HideShow show={paraphraseMode === "small"}>
+          <HideShow show={paraphraseMode === "dev"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
-              8 MB model provide the fastest response time. However, it is not
-              as accurate as the other two models.
+              {intl.formatMessage({id: "model1_desc"})}
             </div>
           </HideShow>
           <HideShow show={paraphraseMode === "stable"}>
             <div className="p-2 mt-2 font-semibold text-center text-green-700 rounded-lg bg-green-50">
-              Stable model is the best model for now. It is the most accurate
-              model.
+            {intl.formatMessage({id: "model2_desc"})}
             </div>
           </HideShow>
           <div className="p-4 sm:px-0">
