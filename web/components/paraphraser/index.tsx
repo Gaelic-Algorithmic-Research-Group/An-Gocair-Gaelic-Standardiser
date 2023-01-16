@@ -30,8 +30,8 @@ export default function Paraphraser() {
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
         const models = {
-          "dev": new URL(`http://angocair.garg.ed.ac.uk/fast/paraphrase`),
-          "stable": new URL(`http://angocair.garg.ed.ac.uk/best/paraphrase`)
+          "dev": new URL(`https://angocair.garg.ed.ac.uk/fast/`),
+          "stable": new URL(`https://angocair.garg.ed.ac.uk/best/`)
         }
         const url = models[paraphraseMode];
         url.searchParams.append("text", text);
