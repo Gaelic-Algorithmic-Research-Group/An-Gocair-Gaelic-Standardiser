@@ -1,7 +1,7 @@
 FROM node
 
 # add code
-COPY ./web /app
+COPY . /app
 
 WORKDIR /app
 RUN yarn install --pure-lockfile && yarn cache clean --production

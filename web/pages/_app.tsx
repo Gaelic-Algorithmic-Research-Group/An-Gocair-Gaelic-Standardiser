@@ -8,6 +8,7 @@ function App({ Component, pageProps }) {
   const [locale, setLocale] = useState<I18nLocale>("en");
   return <I18nProvider locale={locale}>
     <select
+      className="language_selector"
       onChange={(e) => setLocale(e.target.value as I18nLocale)}
       defaultValue={locale}
     >

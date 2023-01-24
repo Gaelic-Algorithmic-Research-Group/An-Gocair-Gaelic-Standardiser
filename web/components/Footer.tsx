@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer className="w-full p-16 bg-gray-100 text-gray-600">
+  <footer className="w-full">
     <nav className="container mx-auto flex items-center justify-between flex-wrap">
     </nav>
   </footer>

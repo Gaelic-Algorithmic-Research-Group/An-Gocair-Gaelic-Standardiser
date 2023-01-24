@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer'
 
 const Layout: React.FunctionComponent = props => (
-  <div className="font-sans antialiased text-gray-900">
+  <div id="main_container" className="font-sans antialiased text-gray-900">
     <main>
       {props.children}
     </main>

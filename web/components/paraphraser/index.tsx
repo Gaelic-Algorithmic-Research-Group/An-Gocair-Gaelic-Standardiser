@@ -30,8 +30,8 @@ export default function Paraphraser() {
     Promise.all(
       splitSentence(inputText, minToken, maxToken).map((text) => {
         const models = {
-          "small": new URL(`http://angocair.garg.ed.ac.uk/fast/paraphrase`),
-          "stable": new URL(`http://angocair.garg.ed.ac.uk/best/paraphrase`)
+          "dev": new URL(`https://angocair.garg.ed.ac.uk/fast/`),
+          "stable": new URL(`https://angocair.garg.ed.ac.uk/best/`)
         }
         const url = models[paraphraseMode];
         url.searchParams.append("text", text);
@@ -127,24 +127,29 @@ export default function Paraphraser() {
           className: "bg-gray-50 shadow-sm font-medium",
         }}
       />
-      <header className="bg-white">
+      <header>
         <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold leading-tight text-center text-gray-900">
+          <h1 className="text-5xl font-bold leading-tight text-center">
             {intl.formatMessage({id: "headtitle"})}
           </h1>
         </div>
       </header>
+      <nav>
+        <a href="https://garg.ed.ac.uk">{intl.formatMessage({id: "home"})}</a>
+        <a href="https://sgriobhadair.garg.ed.ac.uk">{intl.formatMessage({id: "transcriber"})}</a>
+        <a href="https://sgrudaire.garg.ed.ac.uk">{intl.formatMessage({id: "analyser"})}</a>
+      </nav>
       <main>
         <SosialShare />
-        <section className="py-4 mx-auto border border-gray-100 rounded-lg shadow-sm max-w-7xl sm:px-6 lg:px-4">
+        <section className="py-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
           <div className="flex items-center justify-center">
             <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-blue-600 focus:text-blue-600 ${
-                paraphraseMode === "small" ? "bg-blue-50 text-blue-700" : ""
+                paraphraseMode === "dev" ? "bg-blue-50 text-blue-700" : ""
               }`}
-              onClick={() => setParaphraseMode("small")}
+              onClick={() => setParaphraseMode("dev")}
             >
-              {intl.formatMessage({id: "smallmodel"})}
+              {intl.formatMessage({id: "model1"})}
             </button>
             <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-green-600 focus:text-green-600 ${
@@ -152,33 +157,17 @@ export default function Paraphraser() {
               }`}
               onClick={() => setParaphraseMode("stable")}
             >
-              {intl.formatMessage({id: "stablemodel"})}
-            </button>
-            <button
-              className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-amber-600 focus:text-amber-600 ${
-                paraphraseMode === "latest" ? "bg-amber-50 text-amber-700" : ""
-              }`}
-              onClick={() => setParaphraseMode("latest")}
-            >
-              {intl.formatMessage({id: "developingmodel"})}
+              {intl.formatMessage({id: "model2"})}
             </button>
           </div>
-          <HideShow show={paraphraseMode === "small"}>
+          <HideShow show={paraphraseMode === "dev"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
-              8 MB model provide the fastest response time. However, it is not
-              as accurate as the other two models.
+              {intl.formatMessage({id: "model1_desc"})}
             </div>
           </HideShow>
           <HideShow show={paraphraseMode === "stable"}>
             <div className="p-2 mt-2 font-semibold text-center text-green-700 rounded-lg bg-green-50">
-              Stable model is the best model for now. It is the most accurate
-              model.
-            </div>
-          </HideShow>
-          <HideShow show={paraphraseMode === "latest"}>
-            <div className="p-2 mt-2 font-semibold text-center rounded-lg bg-amber-50 text-amber-700">
-              Developing model has the largest datasets. It is still trouble
-              shooting. [20221031:morning].
+            {intl.formatMessage({id: "model2_desc"})}
             </div>
           </HideShow>
           <div className="p-4 sm:px-0">
