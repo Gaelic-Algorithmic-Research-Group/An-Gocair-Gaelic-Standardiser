@@ -4,7 +4,7 @@ name: prettier-action
 on:
   push:
     branches: develop
-  pull:
+  pull_request:
     branches: develop
 
 jobs:
