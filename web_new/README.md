@@ -36,3 +36,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Notes
+
+The section above is auto-generated when a new Create Next App project is created.
+The following are notes taken during the development of this project.
+
+This Create Next App project was created using a TypeScript template, which allows to generate a TypeScript/React development environment.
+The following command was used to start the Next App with `yarn`:
+
+```bash
+yarn create next-app --typescript
+```
+
+## Prettier
+
+The [Prettier](https://prettier.io/docs/en/index.html) code formatter has been employed.
+To format all files in-place using the locally installed version of Prettier, run:
+
+```bash
+yarn prettier --write .
+```
+
+A Prettier pre-commit hook has been added to `.pre-commit-config.yaml`.
+Files in `.prettierignore` will not be formatted by Prettier.
