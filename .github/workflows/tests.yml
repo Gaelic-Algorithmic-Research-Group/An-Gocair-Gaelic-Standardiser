@@ -1,4 +1,4 @@
-name: "Unit tests"
+name: "Tests CI"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  build:
+  cli-pytest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,3 +19,22 @@ jobs:
         run: pip install -r requirements.txt
       - name: Test with pytest
         run: pytest -vv
+
+  web-jest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install --immutable --immutable-cache --check-cache
+          dir: "web_new"
+      - name: Run tests
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test
+          dir: "web_new"
