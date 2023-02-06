@@ -60,3 +60,18 @@ yarn prettier --write .
 
 A Prettier pre-commit hook has been added to `.pre-commit-config.yaml`.
 Files in `.prettierignore` will not be formatted by Prettier.
+
+## Testing
+
+[Jest](https://nextjs.org/docs/testing#jest-and-react-testing-library) has been employed for testing.
+It has been set up with the Rust Compiler using the following command:
+
+```bash
+yarn add jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom --dev
+```
+
+To run all Jest tests, run the following command:
+
+```bash
+yarn test
+```
