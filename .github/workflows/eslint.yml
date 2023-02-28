@@ -24,7 +24,8 @@ jobs:
           # note that currently running on web_new folder - change this when necessary
           dir: "web_new"
       - name: Run ESLint
-        uses: reviewdog/action-eslint@v1
+        uses: borales/actions-yarn@v4
         with:
           # note that currently running on web_new folder - change this when necessary
-          workdir: web_new
+          cmd: next lint
+          dir: "web_new"
