@@ -19,7 +19,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Prettify code
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           dry: True
           # note that currently running on web_new folder - change this when necessary
