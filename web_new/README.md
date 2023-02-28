@@ -61,6 +61,31 @@ yarn prettier --write .
 A Prettier pre-commit hook has been added to `.pre-commit-config.yaml`.
 Files in `.prettierignore` will not be formatted by Prettier.
 
+## ESLint
+
+See [this link](https://nextjs.org/docs/basic-features/eslint) for details.
+
+Next.js provides an integrated [ESLint](https://eslint.org/) experience to find and fix problems in the code.
+In this project, the **strict** configuration was selected after running `yarn lint`.
+This will automatically install `eslint` and `eslint-config-next`, the ESLint configuration used by Next.js.
+
+Because ESLint contains code formatting rules and is here being used with Prettier, [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) has been included in the ESLint configuration.
+This turns off all rules that are unnecessary or might conflict with Prettier.
+
+The dependency was installed by running:
+
+```bash
+yarn add --dev eslint-config-prettier
+```
+
+And then adding `prettier` to the ESLint configuration file `.eslintrc.json`:
+
+```bash
+{
+  "extends": ["next/core-web-vitals", "prettier"]
+}
+```
+
 ## Testing
 
 [Jest](https://nextjs.org/docs/testing#jest-and-react-testing-library) has been employed for testing.
