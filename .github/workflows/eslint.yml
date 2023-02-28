@@ -1,0 +1,24 @@
+name: eslint-reviewdog-action
+
+# This action works with pull requests and pushes - currently only on develop branch
+on:
+  push:
+    branches: develop
+  pull_request:
+    branches: develop
+
+jobs:
+  eslint:
+    name: runner / eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      # Install all the dependencies listed within package.json
+      - run: yarn install
+      - uses: reviewdog/action-eslint@v1
+        with:
+          # note that currently running on web_new folder - change this when necessary
+          workdir: web_new
