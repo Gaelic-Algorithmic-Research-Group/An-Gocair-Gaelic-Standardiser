@@ -29,7 +29,7 @@ jobs:
       - name: Run Prettier with yarn
         uses: borales/actions-yarn@v4
         with:
-          cmd: prettier --check # exits with code 1 if files require formatting
+          cmd: prettier --check . # exits with code 1 if files require formatting
           dir: "web_new"
       - name: Run ESLint with yarn
         uses: borales/actions-yarn@v4
