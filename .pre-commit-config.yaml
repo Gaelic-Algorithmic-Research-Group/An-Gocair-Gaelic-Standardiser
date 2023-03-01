@@ -21,12 +21,17 @@ repos:
     -   id: prettier
         files: ^web_new
         args: [--ignore-path=web_new/.prettierignore]
--   repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.33.0
+-   repo: local
     hooks:
     -   id: eslint
-        files: ^web_new/.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
-        types: [file]
-        additional_dependencies:
-        -   eslint-config-next@13.1.6
-        -   eslint-config-prettier@8.6.0
+        name: eslint
+        entry: bash -c "cd web_new && yarn next lint --fix"
+        language: node
+# The hook below is just used for debugging when necessary.
+# The example below checks if a hook is indeed applied to the specified files.
+# See https://pre-commit.com/#meta-hooks for more details.
+# -   repo: meta
+#     hooks:
+#     -   id: identity
+#         name: identity (filtered)
+#         files: ^web_new\/.*(\.[jt]sx?$)  # *.js, *.jsx, *.ts and *.tsx in web_new folder
