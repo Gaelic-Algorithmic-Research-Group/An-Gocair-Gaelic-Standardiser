@@ -1,0 +1,38 @@
+name: eslint-prettier-action
+
+# This action works with pull requests and pushes - currently only on develop branch
+on:
+  push:
+    branches: develop
+  pull_request:
+    branches: develop
+
+jobs:
+  format-and-lint:
+    name: format-and-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install yarn dependencies
+        uses: borales/actions-yarn@v4
+        with:
+          # the yarn command below is recommended for CI workflow
+          # see https://yarnpkg.com/cli/install
+          cmd: install --immutable --immutable-cache --check-cache
+          # currently running on web_new folder - change this when necessary
+          dir: "web_new"
+      - name: Run Prettier with yarn
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: prettier --check # exits with code 1 if files require formatting
+          dir: "web_new"
+      - name: Run ESLint with yarn
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: next lint # running ESLint with local Next.js configuration
+          dir: "web_new"
