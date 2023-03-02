@@ -6,3 +6,5 @@ const Layout: React.FunctionComponent = (props) => (
     <Footer />
   </div>
 );
+
+export default Layout;
