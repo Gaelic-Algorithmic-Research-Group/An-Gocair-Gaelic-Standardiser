@@ -15,6 +15,7 @@ repos:
     hooks:
     -   id: black
         language: python
+# Find out more about repository local hooks here: https://pre-commit.com/#repository-local-hooks
 -   repo: local
     hooks:
     -   id: prettier

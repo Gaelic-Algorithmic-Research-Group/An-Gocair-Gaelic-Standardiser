@@ -58,10 +58,18 @@ To format all files in-place using the locally installed version of Prettier, ru
 yarn prettier --write .
 ```
 
-A Prettier pre-commit hook has been added to `.pre-commit-config.yaml`.
+To only check if files are formatted with Prettier, run:
+
+```bash
+yarn prettier --check .
+```
+
+A Prettier pre-commit hook has been added to `../.pre-commit-config.yaml` that will run `yarn prettier --write .` with every `git commit`.
+In other words, files will be modified by this pre-commit hook.
 Files in `.prettierignore` will not be formatted by Prettier.
 
-A GitHub Action for Prettier has also been added in ../.github/workflows/prettier.yaml, currently working on pushes and pull requests on the `develop` branch.
+A GitHub Action for Prettier has also been added in `../.github/workflows/prettier_eslint.yml.yaml`, currently working on pushes and pull requests on the `develop` branch.
+Unlike the pre-commit hook, this Action will run `yarn prettier --check .`, which errors if files are not formatted with Prettier.
 
 ## ESLint
 
@@ -100,7 +108,13 @@ Or if you have added `"lint": "next lint"` to the `"scripts"` section in `packag
 yarn lint
 ```
 
-A GitHub Action for ESLint has also been added in ../.github/workflows/eslint.yml, currently working on pushes and pull requests on the `develop` branch.
+A pre-commit hook has been added to `../.pre-commit-config.yaml` that will run `yarn next lint --fix` with every `git commit`.
+In other words, files will be modified by this hook, if necessary.
+The main reason for using `yarn` to run the local ESLint set-up directly, rather than using a pre-commit hook that employs an external GitHub repo, is that you tend to need to do a lot of local setups to make ESLint work in line with the desired configuration (here working in a Next.js framework).
+Additionally, because here we are using ESLint alongside Prettier, we want to make sure the two tools do not conflict with each other.
+By using `yarn` to run ESLint in the pre-commit hook (also in the GitHub Action), we can make sure our local configuration is respected.
+
+A GitHub Action for ESLint has also been added in `../.github/workflows/prettier_eslint.yml`, currently working on pushes and pull requests on the `develop` branch, that will run `yarn next lint`.
 
 ## Testing
 

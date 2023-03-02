@@ -1,5 +1,5 @@
 name: eslint-prettier-action
-
+# borales/actions-yarn@v4: A GitHub Action for interacting with yarn - https://github.com/Borales/actions-yarn
 # This action works with pull requests and pushes - currently only on develop branch
 on:
   push:
