@@ -1,16 +1,18 @@
-import Footer from "@/components/Footer";
 import React from "react";
+import Footer from "./Footer";
+import Header from "./Header";
 
-//  the below is necessary because the FunctionalComponent interface has changed in React>=18
-interface Props {
-  children: React.ReactNode;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <nav>
+        <Header />
+      </nav>
+      <div>
+        <main>{children}</main>
+      </div>
+
+      <Footer />
+    </div>
+  );
 }
-
-const Layout: React.FunctionComponent<Props> = (props) => (
-  <div id="main_container" className="font-sans antialiased text-gray-900">
-    <main>{props.children}</main>
-    <Footer />
-  </div>
-);
-
-export default Layout;
