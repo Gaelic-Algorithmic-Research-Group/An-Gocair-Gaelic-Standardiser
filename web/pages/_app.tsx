@@ -1,7 +1,7 @@
 import I18nProvider, { I18nLocale } from 'providers/I18nProvider';
 import { useState } from 'react';
 import '../styles/globals.css';
-import '../styles/style.css';
+import '../styles/style.css'; // this adds the page style (blue header, etc.)
 
 function App({ Component, pageProps }) {
 
