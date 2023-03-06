@@ -12,7 +12,7 @@ interface I18nProviderProps {
   locale: I18nLocale;
 }
 
-function I18nProvider({
+export default function I18nProvider({
   children,
   locale,
 }: PropsWithChildren<I18nProviderProps>) {
