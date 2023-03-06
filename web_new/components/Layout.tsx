@@ -4,15 +4,10 @@ import Header from "./Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <nav>
-        <Header />
-      </nav>
-      <div>
-        <main>{children}</main>
-      </div>
-
+    <>
+      <Header />
+      <main>{children}</main>
       <Footer />
-    </div>
+    </>
   );
 }
