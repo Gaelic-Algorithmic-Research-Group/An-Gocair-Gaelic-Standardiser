@@ -20,7 +20,9 @@ export default function I18nProvider({
   // The set function `setMessages` allows to update the state
   // to a different value and trigger a re-render.
   // Record<Keys, Type> constructs an object type whose property
-  // keys are `Keys` and whose property values are `Type`.
+  // keys are `Keys` and whose property values are `Type` (in this case
+  // `string`). `keyof typeof` gives us a set of keys which are the names
+  // of the properties of the type of object `en`.
   const [messages, setMessages] = useState<Record<keyof typeof en, string>>(en);
 
   // Now make use of the `useEffect` Hook, where the function we pass
