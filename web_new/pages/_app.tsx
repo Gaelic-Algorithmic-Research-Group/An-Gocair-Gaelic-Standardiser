@@ -5,7 +5,7 @@
 import type { AppProps } from "next/app";
 import Layout from "@/components/Layout";
 import "../styles/globals.css";
-import "../styles/style.css";
+import "../styles/style.css"; // this adds the page style (blue header, etc.)
 import { useState } from "react";
 import I18nProvider, { I18nLocale } from "@/providers/I18Provider";
 
@@ -14,6 +14,14 @@ export default function App({ Component, pageProps }: AppProps) {
   // wrap the page with our custom i18n provider
   return (
     <I18nProvider locale={locale}>
+      <select
+        className="language_selector"
+        onChange={(e) => setLocale(e.target.value as I18nLocale)}
+        defaultValue={locale}
+      >
+        <option value="en">English</option>
+        <option value="gd">Gàidhlig</option>
+      </select>
       {/* add our custom layout */}
       <Layout>
         <Component {...pageProps} />{" "}
