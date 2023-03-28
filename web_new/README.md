@@ -133,8 +133,13 @@ yarn test
 
 ## Tailwind CSS
 
-[CSS (Sascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps) is used to style and lay out web pages.
+[CSS (Cascading Style Sheets)](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps) is used to style and lay out web pages.
 [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework which provides several opinionated, single-purpose utility classes that you can use directly inside your markup to design an element.
 See [this tutorial](https://www.freecodecamp.org/news/what-is-tailwind-css-a-beginners-guide/) for a beginner's guide.
 Tailwind CSS has been used in this project to style the website.
 See [instructions](https://tailwindcss.com/docs/guides/nextjs) for installing Tailwind CSS with Next.js.
+
+## Other packages
+
+- [Material UI](https://mui.com/material-ui/getting-started/overview/): a library of React UI components that implements Google's Material Design.
+- [Emotion](https://emotion.sh/docs/introduction): a library designed for writing css styles with JavaScript.
