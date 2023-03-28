@@ -9,8 +9,6 @@ export default function SocialShare() {
   useEffect(() => {
     if (typeof window === undefined) return;
     const postUrl = encodeURIComponent(document.location.href);
-    // console.log(document.location.href)
-    // console.log(postUrl)
     const postTitle = encodeURIComponent("Am faca sibh an t-inneal seo? ");
     setFacebook(`https://www.facebook.com/sharer.php?u=${postUrl}`);
     setTwitter(`https://twitter.com/share?url=${postUrl}&text=${postTitle}`);
