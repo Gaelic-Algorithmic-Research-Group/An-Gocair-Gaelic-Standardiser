@@ -1,4 +1,4 @@
-const LoadSample = (setInputText: (arg0: string) => void) => {
+const SampleText = () => {
   var array = [
     "Cha'n 'eil mi 'fuirach 'nam thigh mór an-seo ann an Éirinn, gu mi-fhortanach, ach siod a' cheud tigh a bh' agam-sa",
     "bhu ad a fuireach ann an Inhbir-Nìs an uar sen.",
@@ -14,8 +14,7 @@ const LoadSample = (setInputText: (arg0: string) => void) => {
     `"A gabha tu" ors eisean "dine comhla ruit" ors esan?`,
   ];
   var text = array[Math.floor(Math.random() * array.length)];
-  //document.querySelector('textarea').value = randomtext;
-  setInputText(text);
+  return text;
 };
 
-export default LoadSample;
+export default SampleText;

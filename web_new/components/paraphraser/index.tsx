@@ -5,6 +5,7 @@ import HideShow from "./hide-show";
 import { SplitSentence } from "utils/paraphraser/split-sentence";
 import Sentence from "./Sentence";
 import { useIntl } from "react-intl";
+import SampleText from "./sample-text";
 
 export default function Paraphraser() {
   const intl = useIntl();
@@ -98,25 +99,8 @@ export default function Paraphraser() {
     changedinputText = changedinputText.replace(/\n/g, " ");
     setInputText(changedinputText.replace(/  +/g, " "));
   };
-  const loadSameple = () => {
-    var text = "here the text that you want to input.";
-    var array = [
-      "Cha'n 'eil mi 'fuirach 'nam thigh mór an-seo ann an Éirinn, gu mi-fhortanach, ach siod a' cheud tigh a bh' agam-sa",
-      "bhu ad a fuireach ann an Inhbir-Nìs an uar sen.",
-      "Luchd-reic Charbad, Acuinn agus Thruncaichean.",
-      "Tha ar prisean iosal, agus tha 'm bathar dhe'n t-seorsa 's fhearr.",
-      "Thòisich leann-dubh air buaidh fhaotainn air Màiri bhochd.",
-      "TD MU DHAOINE GHEIBH BOGADH BATHAIDH, ATH-BHEOTHACHADH.",
-      "'S é 'n duine nuadh a theirear ris an nuadh chreatuir so,",
-      "Tha an cogadh a sior dhol air adhart ann an Cuba.",
-      `“ged a bhtodh a’ righ marabh a mairleach, ors i se, “bu bheg do chuid sa dhern iite seo, !’ or: i3e.`,
-      `La r-na-mhaireach thanaig an dotar a-ri—ist agas thg e leis a’ minister a nuas a chiomhead air a’ghille so.`,
-      `"S e bric a bha sin."A!well" ors esan,"taingdhut, a Dhia" ors esan`,
-      `"A gabha tu" ors eisean "dine comhla ruit" ors esan?`,
-    ];
-    var randomtext = array[Math.floor(Math.random() * array.length)];
-    //document.querySelector('textarea').value = randomtext;
-    setInputText(randomtext);
+  const loadSample = () => {
+    setInputText(SampleText);
   };
 
   return (
@@ -240,7 +224,7 @@ export default function Paraphraser() {
               <button
                 type="button"
                 className="flex justify-content:space-between items-center justify-center max-w-md px-4 mx-2 my-2 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50"
-                onClick={loadSameple}
+                onClick={loadSample}
               >
                 <svg
                   className="w-5 h-6 mr-2 -ml-1"
