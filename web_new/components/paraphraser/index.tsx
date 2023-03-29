@@ -3,9 +3,10 @@ import toast from "react-hot-toast";
 import copy from "copy-to-clipboard";
 import HideShow from "./hide-show";
 import { SplitSentence } from "utils/paraphraser/split-sentence";
-import Sentence from "./Sentence";
+import Sentence from "./sentence";
 import { useIntl } from "react-intl";
 import SampleText from "./sample-text";
+import Button from "./button";
 
 export default function Paraphraser() {
   const intl = useIntl();
@@ -71,6 +72,7 @@ export default function Paraphraser() {
     var div = document.getElementById("outputText");
     div.contentEditable = "true";
   };
+
   const handleCopyResult = () => {
     var div = document.getElementById("outputText");
     var spans = div.getElementsByTagName("span");
@@ -99,6 +101,7 @@ export default function Paraphraser() {
     changedinputText = changedinputText.replace(/\n/g, " ");
     setInputText(changedinputText.replace(/  +/g, " "));
   };
+
   const loadSample = () => {
     setInputText(SampleText);
   };
@@ -108,22 +111,28 @@ export default function Paraphraser() {
       <main>
         <section className="py-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
           <div className="flex items-center justify-center">
-            <button
+            <Button models onClick={() => setParaphraseMode("dev")}>
+              {intl.formatMessage({ id: "model1" })}
+            </Button>
+            {/* <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-blue-600 focus:text-blue-600 ${
                 paraphraseMode === "dev" ? "bg-blue-50 text-blue-700" : ""
               }`}
               onClick={() => setParaphraseMode("dev")}
             >
               {intl.formatMessage({ id: "model1" })}
-            </button>
-            <button
+            </button> */}
+            <Button models onClick={() => setParaphraseMode("stable")}>
+              {intl.formatMessage({ id: "model2" })}
+            </Button>
+            {/* <button
               className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-green-600 focus:text-green-600 ${
                 paraphraseMode === "stable" ? "bg-green-50 text-green-700" : ""
               }`}
               onClick={() => setParaphraseMode("stable")}
             >
               {intl.formatMessage({ id: "model2" })}
-            </button>
+            </button> */}
           </div>
           <HideShow show={paraphraseMode === "dev"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
