@@ -8,6 +8,7 @@ import "../styles/globals.css";
 import "../styles/style.css"; // this adds the page style (blue header, etc.)
 import { useState } from "react";
 import I18nProvider, { I18nLocale } from "@/providers/I18Provider";
+import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [locale, setLocale] = useState<I18nLocale>("en");
@@ -23,6 +24,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <option value="gd">Gàidhlig</option>
       </select>
       {/* add our custom layout */}
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          className: "bg-gray-50 shadow-sm font-medium",
+        }}
+      />
       <Layout>
         <Component {...pageProps} />{" "}
         {/* the `Component` prop is the active `page` */}

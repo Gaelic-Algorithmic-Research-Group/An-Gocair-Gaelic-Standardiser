@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import copy from "copy-to-clipboard";
 import HideShow from "./hide-show";
 import { SplitSentence } from "utils/paraphraser/split-sentence";
@@ -105,11 +105,6 @@ export default function Paraphraser() {
 
   return (
     <>
-      <Toaster
-        toastOptions={{
-          className: "bg-gray-50 shadow-sm font-medium",
-        }}
-      />
       <main>
         <section className="py-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
           <div className="flex items-center justify-center">
