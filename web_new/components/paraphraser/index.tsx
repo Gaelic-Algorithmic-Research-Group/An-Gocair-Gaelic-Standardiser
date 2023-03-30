@@ -111,28 +111,21 @@ export default function Paraphraser() {
       <main>
         <section className="py-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
           <div className="flex items-center justify-center">
-            <Button models onClick={() => setParaphraseMode("dev")}>
-              {intl.formatMessage({ id: "model1" })}
-            </Button>
-            {/* <button
-              className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-blue-600 focus:text-blue-600 ${
-                paraphraseMode === "dev" ? "bg-blue-50 text-blue-700" : ""
-              }`}
+            <Button
+              models
+              paraphraseMode={"dev"}
               onClick={() => setParaphraseMode("dev")}
             >
               {intl.formatMessage({ id: "model1" })}
-            </button> */}
-            <Button models onClick={() => setParaphraseMode("stable")}>
-              {intl.formatMessage({ id: "model2" })}
             </Button>
-            {/* <button
-              className={`inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-gray-500 hover:text-green-600 focus:text-green-600 ${
-                paraphraseMode === "stable" ? "bg-green-50 text-green-700" : ""
-              }`}
+
+            <Button
+              models
+              paraphraseMode={"stable"}
               onClick={() => setParaphraseMode("stable")}
             >
               {intl.formatMessage({ id: "model2" })}
-            </button> */}
+            </Button>
           </div>
           <HideShow show={paraphraseMode === "dev"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
@@ -201,12 +194,7 @@ export default function Paraphraser() {
               </span>
             </div>
             <div className="flex flex-wrap order-3 md:order-2 items-center justify-center">
-              <button
-                type="button"
-                className="flex justify-content:space-between items-center justify-center max-w-md my-2 px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50"
-                id="inputText123"
-                onClick={clearlinebreak}
-              >
+              <Button actions onClick={clearlinebreak}>
                 <svg
                   className="w-5 h-6 mr-2 -ml-1"
                   fill="none"
@@ -224,12 +212,9 @@ export default function Paraphraser() {
                   />
                 </svg>
                 Remove line breaks
-              </button>
-              <button
-                type="button"
-                className="flex justify-content:space-between items-center justify-center max-w-md px-4 mx-2 my-2 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50"
-                onClick={loadSample}
-              >
+              </Button>
+
+              <Button actions onClick={loadSample}>
                 <svg
                   className="w-5 h-6 mr-2 -ml-1"
                   fill="none"
@@ -247,10 +232,10 @@ export default function Paraphraser() {
                   />
                 </svg>
                 {intl.formatMessage({ id: "example" })}
-              </button>
-              <button
-                type="button"
-                className="flex items-center justify-center max-w-md my-2 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md disabled:opacity-60 mx-2 px-7 hover:bg-blue-700 md:py-3 md:text-lg md:px-10"
+              </Button>
+
+              <Button
+                convert
                 onClick={handleParaphraseSubmission}
                 disabled={disabled}
               >
@@ -294,15 +279,11 @@ export default function Paraphraser() {
                 {paraphraseLoading
                   ? intl.formatMessage({ id: "actioning" })
                   : intl.formatMessage({ id: "action" })}
-              </button>
+              </Button>
             </div>
             <div className="flex order-2 md:order-3 justify-center align-middle">
               <HideShow show={inputText.length > 10 && inputText.length < 2000}>
-                <button
-                  type="button"
-                  className="flex items-center justify-center max-w-md px-4 py-2 mx-2 font-medium text-red-500 border border-transparent rounded-md hover:text-red-600 focus:text-red-600 bg-red-50"
-                  onClick={handleClear}
-                >
+                <Button clear onClick={handleClear}>
                   <svg
                     className="w-6 h-6 mr-2 -ml-1"
                     fill="none"
@@ -319,14 +300,10 @@ export default function Paraphraser() {
                     />
                   </svg>
                   {intl.formatMessage({ id: "clear" })}
-                </button>
+                </Button>
               </HideShow>
               <HideShow show={true}>
-                <button
-                  type="button"
-                  className="flex items-center justify-center max-w-md px-4 py-2 font-medium text-gray-500 border border-transparent rounded-md hover:text-blue-600 focus:text-blue-600 bg-gray-50"
-                  onClick={handleCopyResult}
-                >
+                <Button copy onClick={handleCopyResult}>
                   <svg
                     className="w-6 h-6 mr-2 -ml-1"
                     fill="currentColor"
@@ -337,7 +314,7 @@ export default function Paraphraser() {
                     <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
                   </svg>
                   {intl.formatMessage({ id: "copy" })}
-                </button>
+                </Button>
               </HideShow>
             </div>
           </div>
