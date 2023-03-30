@@ -7,6 +7,7 @@ export default {
   developingmodel: "Developing Model",
   inputHeader: "Enter the text you want to GOCify",
   outputHeader: "GOCified text",
+  remove: "Remove line breaks",
   example: "Sample texts",
   action: "Convert to GOC",
   actioning: "Converting to GOC",

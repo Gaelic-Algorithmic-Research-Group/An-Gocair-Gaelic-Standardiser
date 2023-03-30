@@ -7,6 +7,7 @@ export default {
   developingmodel: "Am modail fo obair",
   inputHeader: "Cuir a-steach na tha thu ag iarraidh ann an litreachadh GOC",
   outputHeader: "An teacsa ann an GOC",
+  remove: "Remove line breaks",
   example: "Ball-eisimpleir",
   action: "Cuir GOC air",
   actioning: "Cuir GOC air",
