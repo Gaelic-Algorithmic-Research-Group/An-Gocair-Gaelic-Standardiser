@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Paraphraser from "@/components/paraphraser";
+import Layout from "@/components/layout";
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />{" "}
         {/* controls viewport's size and shape */}
       </Head>
-      <Paraphraser />
+      <Layout>
+        <Paraphraser />
+      </Layout>
     </>
   );
 }

@@ -3,7 +3,6 @@
 // and allows us to control initialization.
 // More info here: https://nextjs.org/docs/advanced-features/custom-app
 import type { AppProps } from "next/app";
-import Layout from "@/components/layout";
 import "../styles/globals.css";
 import "../styles/style.css"; // this adds the page style (blue header, etc.)
 import { useState } from "react";
@@ -23,17 +22,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <option value="en">English</option>
         <option value="gd">Gàidhlig</option>
       </select>
-      {/* add our custom layout */}
+      {/* add the toast notifications component */}
       <Toaster
         position="top-center"
         toastOptions={{
           className: "bg-gray-50 shadow-sm font-medium",
         }}
       />
-      <Layout>
-        <Component {...pageProps} />{" "}
-        {/* the `Component` prop is the active `page` */}
-      </Layout>
+      <Component {...pageProps} />{" "}
+      {/* the `Component` prop is the active `page` */}
     </I18nProvider>
   );
 }
