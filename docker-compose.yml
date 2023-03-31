@@ -1,29 +1,34 @@
 version: "3"
 
 services:
-  fast:
+  model1:
     build:
       dockerfile: ./server.Dockerfile
     restart: always
-    entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0"]  
+    entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0"]
+    volumes:
+      - ../models/model_1/checkpoint_best.pt:/app/server/models/checkpoint_best.pt
+      - ../models/model_1/bin:/app/server/binary
     ports:
       - "6456:8000"
-  best:
+  model2:
     build:
       dockerfile: ./server.Dockerfile
     restart: always
     entrypoint: ["nohup", "uvicorn", "server.main:app", "--reload", "--host", "0.0.0.0", "--port", "8001"] 
     volumes:
-      - models/best/:/app/server/models
+      - ../models/model_2/checkpoint_best.pt:/app/server/models/checkpoint_best.pt
+      - ../models/model_2/bin:/app/server/binary
     ports:
       - "6457:8001"
   web:
     build:
-      dockerfile: ./web.Dockerfile
+      dockerfile: ../web.Dockerfile
+      context: web
     restart: always
     entrypoint: ["yarn","start"]
     ports:
       - "6455:3000"
     depends_on:
-      - fast
-      - best
+      - model1
+      - model2
