@@ -14,6 +14,9 @@ api_router = APIRouter()
 @api_router.post("/sentence-spiltter", response_model=SplitSentenceResponse)
 async def sentence_spiltter(body: SplitSentenceRequest = Body(..., example=example_request)):
     """Split text by sentence."""
+    # note that in the current implementation, this sentence splitter is not used
+    # the splitting is performed in the frontend
+    # TODO: implement sentence splitter in the backend
     text = body.text
     id = hashlib.sha256(text).hexdigest()
     sentences = []
