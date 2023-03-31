@@ -60,3 +60,5 @@ pred.*
 !cli/pred.gaelic_file.txt
 !tests/testFiles/pred.gaelic_file.expected.txt
 !cli/testDir/pred*
+
+nohup.out
