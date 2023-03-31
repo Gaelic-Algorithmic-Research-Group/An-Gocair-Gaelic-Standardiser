@@ -4,6 +4,8 @@ export default {
   model1_desc: "The current best model (Development)",
   model2: "Modail 2",
   model2_desc: "The previous best model (Stable)",
+  model3: "Modail 3",
+  model3_desc: "This is your own local model",
   developingmodel: "Am modail fo obair",
   inputHeader: "Cuir a-steach na tha thu ag iarraidh ann an litreachadh GOC",
   outputHeader: "An teacsa ann an GOC",

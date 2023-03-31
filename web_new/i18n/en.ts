@@ -4,6 +4,8 @@ export default {
   model1_desc: "The current best model (Development)",
   model2: "Model 2",
   model2_desc: "The previous best model (Stable)",
+  model3: "Model 3",
+  model3_desc: "This is your own local model",
   developingmodel: "Developing Model",
   inputHeader: "Enter the text you want to GOCify",
   outputHeader: "GOCified text",

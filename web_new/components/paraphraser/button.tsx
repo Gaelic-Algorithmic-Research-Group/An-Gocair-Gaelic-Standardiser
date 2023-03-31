@@ -23,6 +23,8 @@ const Button = ({
       models && paraphraseMode === "dev",
     "inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none hover:text-green-700 focus:text-green-600 bg-green-50 text-green-500":
       models && paraphraseMode === "stable",
+    "inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none hover:text-yellow-700 focus:text-yellow-600 bg-yellow-50 text-yellow-500":
+      models && paraphraseMode === "local",
     "flex items-center justify-center max-w-md my-2 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md disabled:opacity-60 mx-2 px-7 hover:bg-blue-700 md:py-3 md:text-lg md:px-10":
       convert,
     "flex items-center justify-center max-w-md px-4 py-2 mx-2 font-medium text-red-500 border border-transparent rounded-md hover:text-red-600 focus:text-red-600 bg-red-50":

@@ -33,6 +33,7 @@ export default function Paraphraser() {
         const models = {
           dev: new URL(`https://angocair.garg.ed.ac.uk/fast/`),
           stable: new URL(`https://angocair.garg.ed.ac.uk/best/`),
+          local: new URL(`http://localhost:8000/paraphrase`),
         };
         const url = models[paraphraseMode];
         url.searchParams.append("text", text);
@@ -126,6 +127,14 @@ export default function Paraphraser() {
             >
               {intl.formatMessage({ id: "model2" })}
             </Button>
+
+            <Button
+              models
+              paraphraseMode={"local"}
+              onClick={() => setParaphraseMode("local")}
+            >
+              {intl.formatMessage({ id: "model3" })}
+            </Button>
           </div>
           <HideShow show={paraphraseMode === "dev"}>
             <div className="p-2 mt-2 font-semibold text-center text-blue-700 rounded-lg bg-blue-50">
@@ -135,6 +144,11 @@ export default function Paraphraser() {
           <HideShow show={paraphraseMode === "stable"}>
             <div className="p-2 mt-2 font-semibold text-center text-green-700 rounded-lg bg-green-50">
               {intl.formatMessage({ id: "model2_desc" })}
+            </div>
+          </HideShow>
+          <HideShow show={paraphraseMode === "local"}>
+            <div className="p-2 mt-2 font-semibold text-center text-yellow-700 rounded-lg bg-yellow-50">
+              {intl.formatMessage({ id: "model3_desc" })}
             </div>
           </HideShow>
           <div className="p-4 sm:px-0">
