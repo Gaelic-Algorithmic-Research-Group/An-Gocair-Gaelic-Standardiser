@@ -1,53 +1,84 @@
 # Spelling Corrector
 
-This repo contains front end and back end of this app:
-- Back-end, we used `fastapi` and `uvicorn` to setup an API server using python
-- Front-end, we used nodejs, and typescript
+This repo contains two main tools:
+ - The **command line interface**, located in the `cli/` directory. See `cli/README.MD` for more details.
+ - The **web app**:
+   - For the back-end we have used `fastapi` and `uvicorn` to set up an API server using Python. This is located in the `server/` directory.
+   - For the front-end we have used Next.js with a TypeScript template. This is located in the `web` directory (or `web_new` in the `develop` branch). See `web/README.md` or `web_new/README.md` (in `develop` branch) for more details.
 
-## Structure
+## Command Line Interface
+The command line tool allows you to use the Spelling Corrector on the terminal.
+See `cli/README.MD` for details.
+
+## Web App
+There are currently two active branches in this repository: `main` and `develop`.
+
+### Using your own local pre-trained model
+The `main` branch currently uses two API endpoints hosted on [angocair.garg.ed.ac.uk](https://angocair.garg.ed.ac.uk/) to run the two pre-trained transformer models.
+You currently cannot run your own pre-trained transformer model on the web app in the `main` branch.
+
+The `develop` branch has three models available through the `web_new/` directory: the ones hosted in [angocair.garg.ed.ac.uk](https://angocair.garg.ed.ac.uk/) plus the local pre-trained model.
+To make the local model accessible, you first need to deploy the API server locally using `uvicorn`.
+All relevant back-end infrastructure is located in the `server/` directory:
+- The local pre-trained model should be placed in `server/models/`.
+- The script `server/api/api.py` loads the model and hosts the API.
+
+First, make sure you have installed the necessary Python packages in your environment:
+
+```bash
+pip install -r requirements.txt
 ```
-- web
-- server
-  - models/
-  - api/api.py (load model and host api)
-```
 
-To set the server up locally, we have the following steps:
-1) [Run the server](#run-locally-server)
-2) [Setup the web app](#run-locally-web)
-3) The web application could be accessed under `web/out` folder
+Now you can run the server in the background using:
 
-## Run Locally server
-
-To run locally server in debug mode run:
-
-``` bash
-pip3 install -r requirements.txt  --no-cache-dir
+```bash
 nohup uvicorn server.main:app --reload --host 0.0.0.0 &
 ```
-Open your browser to http://localhost:8000/docs to view the API UI.
 
-## Run locally web
+The above command deploys the local model and makes it accessible to the web app through the address http://localhost:8000.
+You can open http://localhost:8000/docs in your browser to view the API user interface.
 
- * Prerequisite: install [Node.JS > 14](https://nodejs.org/en/download/package-manager/), install [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-``` bash
-cd web
-yarn install
-
-## dev - open your browser to http://localhost:3000 to view the UI.
-### change .env.development to your ip address
-yarn dev
-
-## export
-yarn build && yarn export
+Note that you will need to do the following in order to kill the process running in port 8000, once you are done with it.
+In your terminal, run:
+```bash
+lsof -i:8000
+```
+Copy the PID of the process and then run:
+```bash
+kill -9 PID
 ```
 
-# Setup Environment
+### Run the Web App locally
+You can access the operational web app on http://angocair.garg.ed.ac.uk/.
+However, if you want to run the web app locally (e.g. for further development), you can do so using the `yarn` package manager.
+**Prerequisites**: install Node.js and Yarn - see https://classic.yarnpkg.com/lang/en/docs/install/.
+
+First navigate to the `web/` or `web_new/` (in the `develop` branch) directories and install all dependencies listed within `package.json`:
+```bash
+cd web
+yarn install
+```
+To run the development server:
+```bash
+yarn dev
+```
+Open http://localhost:3000 with your browser to see the result.
+
+To create a production-ready build of the application and export it as a set of static HTML files:
+```bash
+yarn build && yarn export
+```
+The output files will be written to `out/`.
+
+Check `web_new/README.MD` (in the `develop` branch) for more details.
+
+
+### Setup Environment using caddy
+**TODO: this section needs reviewing.**
 
 To allow people to access publically, we need to setup caddy or other web hosting server.
 
-## Setup caddy
-```
+```bash
 # download and install caddy
 curl -O caddy https://caddyserver.com/api/download?os=linux&arch=arm64&p=github.com%2Fcaddy-dns%2Fcloudflare&idempotency=91119776165967
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -65,20 +96,6 @@ systemctl status caddy
 # copy the html
 cp -r ./web/out/. /usr/share/caddy/
 ```
-
-# Black
-A Git configuration has been added that can be used to automatically run `black` (the Python code formatter) every time a commit is made:
-
-1. Make sure that you have `pre-commit` installed (it should have been installed after running `pip install -r requirements.txt`).
-2. Install the configuartion by running `pre-commit install` in the root directory of the repo. This will read the `.pre-commit-config.yaml` file.
-3. Now, every time you do a Git commit, `black` will run automatically and format any Python files.
-
-A GitHub Action has also been created that will check that Python files have been formatted with `black` after every push or pull request.
-
-# Testing
-Tests for the command line interface `cli/convert.py` have been included in the `tests/` directory.
-To run the tests locally, run `pytest` from root directory of the repo.
-A GitHub Action has also been created that will run the tests automatically after every push or pull request.
 
 # TODO
 - [x] API
